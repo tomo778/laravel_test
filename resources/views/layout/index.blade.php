@@ -26,7 +26,6 @@
 					<label for="panelmenu" id="topmenubtn"><span>MENU</span></label>
 					<nav id="topmenu">
 						<ul>
-							<li><a href="/shop">カート</a></li>
 							<li><a href="/contact">お問い合わせ</a></li>
 						</ul>
 					</nav>
