@@ -1,10 +1,12 @@
 <?php
+
 namespace App\DataAccess;
 
 use Illuminate\Database\DatabaseManager;
 use DB;
-use App\News;
-use App\Category;
+use App\Models\News;
+use App\Models\Category;
+use App\Models\RCategory;
 
 class NewsDataAccess
 {
@@ -16,35 +18,42 @@ class NewsDataAccess
 
 	public function news_detail($id = null)
 	{
-		$result = DB::table('m_category')
-		->leftJoin('r_category','r_category.category_id','=','m_category.id')
-		->whereIn('r_category.plugin_id', [$id])
-		->orderBy('m_category.id','desc')
-		->get();
+		// $c = RCategory::where('plugin_id', $id)->get();
+		// foreach($c as $v) {
+		// 	$r = $v->getCategory()->get()->toArray();
+		// 	var_dump($r);
+		// }
+		// exit;
 
-		return $result;
+		$c = DB::table('m_category')
+			->leftJoin('r_category', 'r_category.category_id', '=', 'm_category.id')
+			->whereIn('r_category.plugin_id', [$id])
+			->orderBy('m_category.id', 'desc')
+			->get();
+
+		return $c;
 	}
 
-	public function news_datas($result2)
+	public function news_datas($result)
 	{
-		$result2 = $result2->toArray();
+		$result = $result->toArray();
+		$categorys = DB::table('m_category')
+			->leftJoin('r_category', 'r_category.category_id', '=', 'm_category.id')
+			->orderBy('m_category.id', 'desc')
+			->get();
 
-		$re = DB::table('m_category')
-		->leftJoin('r_category','r_category.category_id','=','m_category.id')
-		->orderBy('m_category.id','desc')
-		->get();
-		foreach($re as $k => $v) {
+		foreach ($categorys as $k => $v) {
 			$i = $v->plugin_id;
 			$tmp['category_id'] = $v->category_id;
 			$tmp['title'] = $v->title;
 			$tmp['text'] = $v->text;
-			$re2[$i][] = $tmp;
+			$categorys_tmp[$i][] = $tmp;
 		}
-		foreach($result2['data'] as $k => $v) {
-			if (isset($re2[$v['id']])) {
-				(array)$result2['data'][$k]['category'] = $re2[$v['id']];
+		foreach ($result['data'] as $k => $v) {
+			if (isset($categorys_tmp[$v['id']])) {
+				(array) $result['data'][$k]['category'] = $categorys_tmp[$v['id']];
 			}
 		}
-		return $result2['data'];
+		return $result['data'];
 	}
 }

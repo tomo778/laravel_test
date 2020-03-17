@@ -5,7 +5,7 @@
 <div id="blogarea">
     @foreach (@$datas as $k => $v)
     <article class="blog">
-        <div class="thumb"><a href="/news/{{$v['id']}}"><img src="./img/dummy.jpg" alt="dummy" /></a></div>
+        <div class="thumb"><a href="/news/{{$v['id']}}"><img src="/img/dummy.jpg" alt="dummy" /></a></div>
         <div class="bbox">
             <div class="title"><a href="/news/{{$v['id']}}">{{$v['title']}}</a></div>
             <div class="body">{{$v['text']}}</div>

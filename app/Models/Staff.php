@@ -1,15 +1,15 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class RCategory extends Model
+class Staff extends Model
 {
     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'r_category';
+    protected $table = 'a_staff';
 }

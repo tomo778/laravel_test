@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
-use App\News;
+use App\Models\News;
 
 use App\Library\Common;
 use Validator;
@@ -22,9 +22,6 @@ class DetailController extends Controller
 		$request = News::where('id', $id)
 		->where('status', config('const.STATUS_ON'))
 		->first();
-		if($request == null) {
-			abort('404');
-		}
         $categorys = $NewsDataAccess->news_detail($id);
 		return view('detail',['result'=>$request, 'categorys'=> $categorys, 'bc'=> ['detail_id'=>$id]]);
 	}

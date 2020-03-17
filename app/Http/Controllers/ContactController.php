@@ -4,9 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
-use App\News;
-use App\RCategory;
-use App\DataAccess\NewsDataAccess;
 use App\DataAccess\CategoryDataAccess;
 
 use App\Library\Common;

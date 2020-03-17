@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Services;
-use App\Staff;
+use App\Models\Staff;
 use App\Services\LoggerCustom;
 
 class AdminLogin

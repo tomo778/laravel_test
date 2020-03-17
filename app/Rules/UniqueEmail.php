@@ -3,7 +3,7 @@
 namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
-use App\Staff;
+use App\Models\Staff;
 
 class UniqueEmail implements Rule
 {

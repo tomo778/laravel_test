@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja" dir="ltr">
+
 <head>
 	<meta charset="Shift_JIS" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -13,6 +14,7 @@
 	<link rel="stylesheet" href="./styles.css" type="text/css" />
 	<link rel="alternate" type="application/rss+xml" title="RSS" href="rss.xml" />
 </head>
+
 <body>
 	<div id="wrapper">
 		<header>
@@ -26,6 +28,9 @@
 					<label for="panelmenu" id="topmenubtn"><span>MENU</span></label>
 					<nav id="topmenu">
 						<ul>
+							@foreach ($side_categorys as $k => $v)
+							<li><a href="/category/{{$v->id}}">{{$v->title}}</a></li>
+							@endforeach
 							<li><a href="/contact">お問い合わせ</a></li>
 						</ul>
 					</nav>

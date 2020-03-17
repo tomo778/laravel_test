@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
-use App\News;
+use App\Models\News;
 use App\DataAccess\NewsDataAccess;
 use App\DataAccess\CategoryDataAccess;
 
@@ -20,18 +20,6 @@ class IndexController extends Controller
 	{
 		$paginate = News::paginate(2);
 		$datas = $NewsDataAccess->news_datas($paginate);
-
-		//  //もしnameがあれば
-		//  if(!empty($name)){
-        //     $query->where('name','like','%'.$name.'%');
-        // }
-
-        // //もしemailがあれば
-        // if(!empty($email)){
-        //     $query->where('email','like','%'.$email.'%');
-        // }
-		// var_dump($paginate);
-		// exit;
 		return view('index',['paginate'=>$paginate, 'datas'=> $datas]);
 	}
 }

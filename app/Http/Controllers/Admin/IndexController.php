@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
-use App\Staff;
+use App\Models\Staff;
 use App\Library\Common;
 use Validator;
 use App\Services\AdminInit;

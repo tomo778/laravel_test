@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 //use App\Category;
-use App\Category;
+use App\Models\Category;
 use App\Library\Common;
 use Validator;
 

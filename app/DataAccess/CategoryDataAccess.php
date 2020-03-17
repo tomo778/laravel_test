@@ -3,8 +3,8 @@ namespace App\DataAccess;
 
 use Illuminate\Database\DatabaseManager;
 use DB;
-use App\Category;
-use App\News;
+use App\Models\Category;
+use App\Models\News;
 
 class CategoryDataAccess
 {

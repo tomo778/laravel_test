@@ -5,7 +5,7 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
-use App\Staff;
+use App\Models\Staff;
 use App\Rules\UniqueEmail;
 use Validator;
 

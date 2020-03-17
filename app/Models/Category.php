@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,8 +13,8 @@ class Category extends Model
      */
     protected $table = 'm_category';
 
-    // public function aaaa ()
-    // {
-    //     return $this->hasMany('\App\RCategory','id','category_id');
-    // }
+    public function getRCategory ()
+    {
+        return $this->hasMany('\App\Models\RCategory','category_id','id');
+    }
 }

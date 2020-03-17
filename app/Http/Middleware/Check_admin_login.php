@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\View;
-use App\Category;
+use App\Models\Category;
 use App\Services\AdminLogin;
 
 class Check_admin_login
