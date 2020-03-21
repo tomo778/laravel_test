@@ -1,4 +1,8 @@
 <?php
+//商品個数のselect用
+foreach (range(1, 10) as $number) {
+    $quantity[$number] = $number;
+}
 
 return [
 
@@ -11,7 +15,7 @@ return [
 	|
 	*/
 
-	'site_name' => 'テストサイト',
+	'site_name' => 'テストECサイト',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -32,6 +36,16 @@ return [
     ],
 	|
 	*/
+	//商品個数のselect用
+	'quantity' => $quantity,
+
+	//-------------------------------------
+	'payway' => [
+		'collect_on_delivery' => '代引き',
+		'credit_card' => 'クレジットカード',
+	],
+	'PAYWAY_DELIVERY' => 'collect_on_delivery',
+	'PAYWAY_CARD' => 'credit_card',
 
 	//-------------------------------------
 	'status' => [

@@ -22,6 +22,8 @@
         <th>title</th>
         <th>text</th>
         <th>カテゴリ</th>
+        <th>価格</th>
+        <th>個数</th>
         <th style="width: 120px">作成日</th>
         <th style="width: 120px">更新日</th>
         <th style="width: 60px">更新</th>
@@ -41,6 +43,8 @@
 		</td>
         <td>{{$v['title']}}</td>
         <td>{{$v['text']}}</td>
+        <td>{{$v['price']}}</td>
+        <td>{{$v['num']}}</td>
         <td>{{$v['category']}}</td>
         <td>{{$v['created_at']}}</td>
         <td>{{$v['updated_at']}}</td>

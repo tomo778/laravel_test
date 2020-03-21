@@ -7,12 +7,9 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 use Illuminate\Support\Facades\View;
 
-use App\DataAccess\CategoryDataAccess;
-
 class Handler extends ExceptionHandler
 {
-    public function __construct(CategoryDataAccess $CategoryDataAccess)	{
-		View::share('side_categorys', $CategoryDataAccess->categorys());
+    public function __construct()	{
 	}
     /**
      * A list of the exception types that are not reported.

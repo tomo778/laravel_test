@@ -41,6 +41,20 @@
 		</div>
 	</div>
 	<div class="form-group row">
+		<label for="inputEmail" class="col-sm-2 col-form-label">値段</label>
+		<div class="col-sm-10">
+			<input type="text" class="form-control" name="price" value="{{@$result['price']}}">
+			<div class="text-danger" data-errmes="price"></div>
+		</div>
+	</div>
+	<div class="form-group row">
+		<label for="inputEmail" class="col-sm-2 col-form-label">個数</label>
+		<div class="col-sm-10">
+			<input type="text" class="form-control" name="num" value="{{@$result['num']}}">
+			<div class="text-danger" data-errmes="num"></div>
+		</div>
+	</div>
+	<div class="form-group row">
 		<label for="inputEmail" class="col-sm-2 col-form-label">カテゴリ</label>
 		<div class="col-sm-10">
 			@foreach ($category as $k => $v)

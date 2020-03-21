@@ -13,13 +13,6 @@ use Validator;
 
 class CategoryController extends Controller
 {
-
-	public function __construct()	{
-		//View::share('category', Category::all());
-		$this->middleware('check_admin_login');
-
-	}
-
 	public function index ()
 	{
 		$result = Category::paginate(10);

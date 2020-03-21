@@ -17,11 +17,6 @@ use DB;
 
 class NewsController extends Controller
 {
-
-	public function __construct()	{
-		$this->middleware('check_admin_login');
-	}
-
 	public function index ()
 	{
 		$result = News::paginate(10);
@@ -119,6 +114,8 @@ class NewsController extends Controller
 		$validator = Validator::make($request->all(), [
 			'title'  => 'required',
 			'text' => 'required',
+			'price'  => ['required', 'integer'],
+			'num' => ['required', 'integer'],
 		]);
 		if ($validator->fails()) {
 			return json_encode(['success' => false, 'errors' => $validator->getMessageBag()->toArray()]);

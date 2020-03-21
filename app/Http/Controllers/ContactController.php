@@ -4,17 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
-use App\DataAccess\CategoryDataAccess;
+//use App\DataAccess\CategoryDataAccess;
 
 use App\Library\Common;
 use Validator;
 
 class ContactController extends Controller
 {
-	public function __construct(CategoryDataAccess $CategoryDataAccess)	{
-		View::share('side_categorys', $CategoryDataAccess->categorys());
-	}
-
 	public function index ()
 	{
 		return view('contact');

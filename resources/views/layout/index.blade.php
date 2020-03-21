@@ -2,16 +2,15 @@
 <html lang="ja" dir="ltr">
 
 <head>
-	<meta charset="Shift_JIS" />
+	<meta charset="uft-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<title>{{Config::get('const.site_name')}}</title>
 	<!-- body タグの最後に足す-->
-	<link rel="stylesheet" href="{{ mix('/css/app.css') }}">
-	<link rel="stylesheet" href="{{asset('/css/styles.css')}}" />
+	<link rel="stylesheet" href="{{ asset('/css/app.css') }}"/>
+	<link rel="stylesheet" href="{{ asset('/css/styles.css') }}"/>
 	<meta name="keywords" content="aaa" />
-	<meta name="description" content="aa" />
-	<link rel="stylesheet" href="./styles.css" type="text/css" />
+	<meta name="description" content="bbb" />
 	<link rel="alternate" type="application/rss+xml" title="RSS" href="rss.xml" />
 </head>
 
@@ -31,7 +30,8 @@
 							@foreach ($side_categorys as $k => $v)
 							<li><a href="/category/{{$v->id}}">{{$v->title}}</a></li>
 							@endforeach
-							<li><a href="/contact">お問い合わせ</a></li>
+							<li><a href="/cart/">カート</a></li>
+							<li><a href="/contact/">お問い合わせ</a></li>
 						</ul>
 					</nav>
 					<input id="panelclose" type="radio" checked="checked" name="panel">
@@ -40,8 +40,8 @@
 			</div>
 			@if (isset($bc))
 			<div id="siteNavi"><a href="/">トップページ</a>
-				@if (isset($bc['category_id']))
-				＞ カテゴリ（{{$side_categorys[$bc['category_id']]->title}}）</div>
+				@if (isset($bc['category_name']))
+				＞ カテゴリ（{{$bc['category_name']}}）</div>
 			@endif
 			@if (isset($bc['detail_id']))
 			＞ {{$result['title']}}
@@ -66,7 +66,6 @@
 									@endforeach
 								</ul>
 							</div>
-
 						</div>
 					</nav>
 				</div>
@@ -84,12 +83,9 @@
 	</footer>
 
 	</div>
-	<script src="./js/sticky.min.js" defer></script>
-	<script src="./js/move_to.min.js" defer></script>
-	<script src="./js/ofi.min.js"></script>
-	<script>
-		objectFitImages();
-	</script>
+	<!-- <script src="/js/sticky.min.js" defer></script>
+	<script src="/js/move_to.min.js" defer></script>
+	<script src="/js/ofi.min.js"></script> -->
 </body>
 
 </html>

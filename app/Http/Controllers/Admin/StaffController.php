@@ -11,12 +11,6 @@ use Validator;
 
 class StaffController extends Controller
 {
-
-		public function __construct()	{
-			//View::share('artist', Artist::all()->keyBy('id')->toArray());
-			$this->middleware('check_admin_login');
-		}
-
 		public function index ()
 		{
 			$result = Staff::paginate(10);

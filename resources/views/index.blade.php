@@ -8,7 +8,7 @@
         <div class="thumb"><a href="/news/{{$v['id']}}"><img src="./img/dummy.jpg" alt="dummy" /></a></div>
         <div class="bbox">
             <div class="title"><a href="/news/{{$v['id']}}">{{$v['title']}}</a></div>
-            <div class="body">{{$v['text']}}</div>
+            <div class="body">{{number_format($v['price'])}}円</div>
             <div class="info">
                 @foreach ($v['category'] as $k2 => $v2)
                 <span class="plist"><a href="/category/{{$v2['category_id']}}">{{$v2['title']}}</a></span>

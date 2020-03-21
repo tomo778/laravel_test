@@ -25,6 +25,10 @@ class AppServiceProvider extends ServiceProvider
 	 */
 	public function register()
 	{
+		// .envを見てログ出力を行うかどうかを判別
+		if (env('APP_DEBUG') !== true) {
+			return;
+		}
 		// SQL Log
 		\DB::listen(function ($query) {
 			$sql = $query->sql;
@@ -38,9 +42,8 @@ class AppServiceProvider extends ServiceProvider
 			$LoggerCustom = new LoggerCustom('sql');
 			$mes = sprintf("%.2f ms", $query->time) . ', "' . $sql . '"';
 			$LoggerCustom->daily('/logs/sql/sql.log', $mes);
-
 		});
 		//
-		$this->app->bind('AdminLogin','App\Services\AdminLogin');
+		$this->app->bind('AdminLogin', 'App\Services\AdminLogin');
 	}
 }
