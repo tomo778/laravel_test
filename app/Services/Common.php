@@ -5,6 +5,7 @@ class Common
 	public static function h($s) {
 		return htmlspecialchars($s, ENT_QUOTES, 'UTF-8');
 	}
+	//Common::fw_search($query, $request['fw'], 'カラム名');
 	public static function fw_search($query, $s, $tmp2) {
 		$tmp = array();
 		$tmp = mb_convert_kana($s, "s", "UTF-8");

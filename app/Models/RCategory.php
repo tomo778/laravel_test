@@ -17,4 +17,16 @@ class RCategory extends Model
     {
         return $this->hasOne('\App\Models\Category','id','category_id');
     }
+
+    public function scopeInsertCategory($query, $array, $plugin, $category, $last_id)
+    {
+		foreach ($array as $k => $v) {
+			$tmp['plugin'] = $plugin;
+			$tmp['plugin_id'] = $last_id;
+			$tmp['category'] = $category;
+			$tmp['category_id'] = $v;
+			$data[] = $tmp;
+		}
+        return $query->insert($data);
+    }
 }

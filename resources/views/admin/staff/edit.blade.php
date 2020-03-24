@@ -5,7 +5,7 @@
 
 @include('admin._include.edit_header')
 
-	@if (!empty($result['id']))
+	@if (!empty(@$result['id']))
 	<div class="form-group row">
 		<label for="inputEmail" class="col-sm-2 col-form-label">id</label>
 		<div class="col-sm-10">
@@ -28,7 +28,7 @@
 	<div class="form-group row">
 		<label for="inputEmail" class="col-sm-2 col-form-label">ロール</label>
 		<div class="col-sm-10">
-			@if ($result['id'] != '1')
+			@if (@$result['id'] != '1')
 			@foreach (Config('const.role') as $k => $v)
 			<label>
 		      <input type="radio" name="role" value="{{$k}}" @if (@$result['role'] == $k) checked @endif>{{$v}}
@@ -57,7 +57,7 @@
 		<label for="inputEmail" class="col-sm-2 col-form-label">パスワード</label>
 		<div class="col-sm-10">
 			<input type="text" class="form-control" name="password" value="">
-			@if (!empty($result['id']))
+			@if (!empty(@$result['id']))
 			<p class="text-info">※変更する場合のみ記入</p>
 			@endif
 			<div class="text-danger" data-errmes="password"></div>

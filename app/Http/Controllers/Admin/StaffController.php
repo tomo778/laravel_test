@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\View;
 use App\Models\Staff;
 use App\Rules\UniqueEmail;
 use Validator;
+use DB;
 
 class StaffController extends Controller
 {
@@ -17,50 +18,48 @@ class StaffController extends Controller
 			return view('admin.staff.index',['result'=>$result]);
 		}
 
-		public function search (Request $request)
-		{
-			$tmp2 = array('title','text');
-			$query = Staff::query();
-			$query = Common::fw_search($query, $request['fw'], $tmp2);
-			$result = $query->paginate(10);
-			return view('admin.staff',['result'=>$result, 'request'=>$request]);
-		}
-
 		public function create ()
 		{
-			$request['id'] = '';
-			return view('admin.staff.edit',['mode_name'=>'追加','result'=>$request]);
+			return view('admin.staff.edit');
 		}
 
-		public function create_exe (Request $request)
+		public function create_exe (Request $request,Staff $Staff)
 		{
-			$post_data = $request->all();
-			unset($post_data['_token']);
-			unset($post_data['sw']);
-			$post_data['password'] = password_hash($post_data['password'], PASSWORD_DEFAULT);
-			$id = Staff::insertGetId($post_data);
-			return redirect('admin/staff/edit/' . $id)->with('one_time_mes', 1);
+			$request->merge([
+				'password' => password_hash($request->password, PASSWORD_DEFAULT),
+			]);
+			$Staff->fill($request->all())->save();
+			$last_insert_id = $Staff->id;
+			return redirect('admin/staff/edit/' . $last_insert_id)->with('one_time_mes', 1);
 		}
 
 		public function update ($id)
 		{
 			$request = Staff::findOrFail($id);
-			return view('admin.staff.edit',['mode_name'=>'更新','result'=>$request]);
+			return view('admin.staff.edit',['result'=>$request]);
 		}
 
 		public function update_exe (Request $request)
 		{
-			$post_data = $request->all();
-			unset($post_data['_token']);
-			unset($post_data['sw']);
-			if (!empty($post_data['password'])) {
-				$post_data['password'] = password_hash($post_data['password'], PASSWORD_DEFAULT);
-			} else {
-				unset($post_data['password']);
+			DB::beginTransaction();
+			try {
+				if (!empty($request->password)) {
+					$request->merge([
+						'password' => password_hash($request->password, PASSWORD_DEFAULT),
+					]);
+				} else {
+					$request->offsetUnset('password');
+				}
+				$q = Staff::findOrFail($request->id);
+				$q->fill($request->all())->save();
+				DB::commit();
+			} catch (\PDOException $e) {
+				DB::rollBack();
+				$LoggerCustom = new LoggerCustom(get_class());
+				$LoggerCustom->single('/logs/admin.log', 'PDOException Error. Rollback was executed.');
+				abort('500');
 			}
-			Staff::where('id', $post_data['id'])
-			  ->update($post_data);
-			return redirect('admin/staff/edit/' . $post_data['id'])->with('one_time_mes', 2);
+			return redirect('admin/staff/edit/' . $request->id)->with('one_time_mes', 2);
 		}
 
 		public function val (Request $request)

@@ -21,27 +21,6 @@ class Purchase extends Mailable
      */
     public function __construct()
     {
-
-        // $to = [
-        // 	[
-        // 		'name' => 'Laravel-rito',
-        // 		'email' => 'test@gmail.com'
-        // 	]
-        // ];
-        // $to = [
-        // 	'test_01@mail.com',
-        // 	'test_02@mail.com'
-        // ];
-        // $to = [
-        // 	[
-        // 		'name' => 'Laravel-01',
-        // 		'email' => 'test_01@mail.com'
-        // 	],
-        // 	[
-        // 		'name' => 'Laravel-02',
-        // 		'email' => 'test_02@mail.com'
-        // 	]
-        // ];
         //$this->title = sprintf('%sさん、ありがとうございます。', $name);
         $this->title = 'ご購入ありがとうございました。';
         $this->name = 'テストだ王';

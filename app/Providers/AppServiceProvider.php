@@ -44,6 +44,6 @@ class AppServiceProvider extends ServiceProvider
 			$LoggerCustom->daily('/logs/sql/sql.log', $mes);
 		});
 		//
-		$this->app->bind('AdminLogin', 'App\Services\AdminLogin');
+		//$this->app->bind('AdminLogin', 'App\Services\AdminLogin');
 	}
 }

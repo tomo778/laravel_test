@@ -12,4 +12,11 @@ class Staff extends Model
      * @var string
      */
     protected $table = 'a_staff';
+
+    public $timestamps = true;
+
+    protected $guarded = [
+        'id',
+        '_token',
+    ];
 }

@@ -75,7 +75,6 @@ return [
 			'role' => '1',
 			'link' => [
 				'top' => '/admin/',
-				//'追加'=>'/admin/staff/edit/'
 			]
 		],
 		'staff' => [
@@ -86,11 +85,11 @@ return [
 				'追加' => '/admin/staff/edit/'
 			]
 		],
-		'news' => [
-			'ja' => '記事',
+		'product' => [
+			'ja' => '商品',
 			'link' => [
-				'一覧' => '/admin/news/',
-				'編集' => '/admin/news/edit/'
+				'一覧' => '/admin/product/',
+				'編集' => '/admin/product/edit/'
 			]
 		],
 		'category' => [
@@ -98,7 +97,6 @@ return [
 			'link' => [
 				'一覧' => '/admin/category/',
 				'編集' => '/admin/category/edit/',
-				//'並び替え'=>'/admin/category/sort/',
 			]
 		],
 	],

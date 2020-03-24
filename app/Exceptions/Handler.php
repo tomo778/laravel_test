@@ -9,8 +9,9 @@ use Illuminate\Support\Facades\View;
 
 class Handler extends ExceptionHandler
 {
-    public function __construct()	{
-	}
+    public function __construct()
+    {
+    }
     /**
      * A list of the exception types that are not reported.
      *
@@ -50,19 +51,38 @@ class Handler extends ExceptionHandler
      * @param  \Exception  $exception
      * @return \Illuminate\Http\Response
      */
-    public function render($request, Exception $e) {
-        if($this->isHttpException($e)) {
-            // 403
-            if($e->getStatusCode() == 403) {
-                return response()->view('errors.403');
+    public function render($request, Exception $e)
+    {
+        if (app()->isLocal() || app()->runningUnitTests()) {
+            return parent::render($request, $e);
+        } else {
+            if ($this->isHttpException($e)) {
+                return $this->renderHttpException($e);
+            } else {
+                // 403
+                if ($e->getStatusCode() == 403) {
+                    return response()->view('errors.403');
+                }
+                // 404
+                if ($e->getStatusCode() == 404) {
+                    return response()->view('errors.404');
+                }
+                // 500
+                return response()->view('errors.500');
             }
-            // 404
-            if($e->getStatusCode() == 404) {
-                return response()->view('errors.404');
-            }
-            // 500
-            return response()->view('errors.500');
-        } 
-        return parent::render($request, $e);
+        }
+        // if ($this->isHttpException($e)) {
+        //     // 403
+        //     if ($e->getStatusCode() == 403) {
+        //         return response()->view('errors.403');
+        //     }
+        //     // 404
+        //     if ($e->getStatusCode() == 404) {
+        //         return response()->view('errors.404');
+        //     }
+        //     // 500
+        //     return response()->view('errors.500');
+        // }
+        // return parent::render($request, $e);
     }
 }

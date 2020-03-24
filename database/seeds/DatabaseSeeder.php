@@ -3,8 +3,8 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
-use App\Staff;
-use App\Category;
+use App\Models\Staff;
+use App\Models\Category;
 
 class DatabaseSeeder extends Seeder {
 
@@ -63,16 +63,3 @@ class CategoryTableSeeder extends Seeder {
     }
 
 }
-
-// class DatabaseSeeder extends Seeder
-// {
-//     /**
-//      * Run the database seeds.
-//      *
-//      * @return void
-//      */
-//     public function run()
-//     {
-//         // $this->call(UsersTableSeeder::class);
-//     }
-// }

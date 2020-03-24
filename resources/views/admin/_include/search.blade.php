@@ -1,4 +1,4 @@
-<form method="post" action="">
+<!-- <form method="post" action="">
 	{{ csrf_field() }}
 	<fieldset class="uk-fieldset">
 		<table class="uk-table uk-table-hover uk-table-divider">
@@ -13,4 +13,4 @@
 			</tbody>
 		</table>
 	</fieldset>
-</form>
+</form> -->

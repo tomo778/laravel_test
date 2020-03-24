@@ -4,15 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
-use App\Models\News;
-use App\DataAccess\NewsDataAccess;
+use App\Models\Product;
+use App\DataAccess\ProductDataAccess;
 
 class IndexController extends Controller
 {
-	public function index (NewsDataAccess $NewsDataAccess)
+	public function index (ProductDataAccess $ProductDataAccess)
 	{
-		$paginate = News::paginate(6);
-		$datas = $NewsDataAccess->news_datas($paginate);
+		$paginate = Product::StatusCheck()->paginate(6);
+		$datas = $ProductDataAccess->product_datas($paginate);
 		return view('index',['paginate'=>$paginate, 'datas'=> $datas]);
 	}
 }

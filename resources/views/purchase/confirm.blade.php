@@ -31,12 +31,12 @@
 <h4>支払方法</h4>
 <p>{{$payway[@$Request['payway']]}}</p>
 <hr>
-<form action="/purchase/" method="post">
+<form action="{{ route('purchase') }}" method="post">
     {{ csrf_field() }}
     <input type="submit" value="戻る">
 </form>
 <hr>
-<form action="/purchase/finish/" method="post">
+<form action="{{ route('purchase_finish') }}" method="post">
     {{ csrf_field() }}
     <input type="submit" value="購入する">
 </form>

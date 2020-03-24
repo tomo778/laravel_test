@@ -3,20 +3,20 @@
 @section('description', 'description')
 @section('body')
 <h4>購入手続き</h4>
-<form action="/purchase/confirm/" method="post">
+<form action="{{ route('purchase_confirm') }}" method="post">
     {{ csrf_field() }}
     <p>
         名前：<br>
         <input type="text" name="name" value="{{@$Request['name']}}" size="40">
         <br>
-        {{@$errors->first('name')}}
+        <div class="err">{{@$errors->first('name')}}</div>
     </p>
     <hr>
     <p>
         住所：<br>
         <textarea name="address" rows="4" cols="40">{{@$Request['address']}}</textarea>
         <br>
-        {{@$errors->first('address')}}
+        <div class="err">{{@$errors->first('address')}}</div>
     </p>
     <hr>
     <p>

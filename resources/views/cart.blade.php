@@ -5,11 +5,6 @@
 <style>
     .btn-disabled {
         pointer-events: none;
-        /* aタグのリンクを無効にする */
-        cursor: default;
-        /* マウスオーバー時のカーソルをdefaultに固定 */
-        text-decoration: none;
-        /* 下線等を消す。 */
     }
 </style>
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
@@ -21,7 +16,7 @@
             $('.purchase_btn').addClass('btn-disabled');
             $('select[name=quantity]').attr('disabled', true);
             $.ajax({
-                url: 'remove',
+                url: "{{ route('cart_remove') }}",
                 type: 'post',
                 data: {
                     '_token': "{{ csrf_token() }}",
@@ -29,11 +24,12 @@
                 },
                 timeout: 10000,
                 success: function(result, textStatus, xhr) {
-                    window.location.href = '/cart/';
+                    window.location.href = "{{ route('cart') }}";
                 },
                 error: function(data) {
                     $('.del_btn').attr('disabled', false);
-                    console.debug(data);
+                    alert('エラーが発生しました。');
+                    window.location.href = "{{ route('cart') }}";
                 }
             });
         });
@@ -43,7 +39,7 @@
             $('.purchase_btn').addClass('btn-disabled');
             $('select[name=quantity]').attr('disabled', true);
             $.ajax({
-                url: 'quantity',
+                url: "{{ route('cart_quantity') }}",
                 type: 'post',
                 data: {
                     '_token': "{{ csrf_token() }}",
@@ -52,11 +48,12 @@
                 },
                 timeout: 10000,
                 success: function(result, textStatus, xhr) {
-                    window.location.href = '/cart/';
+                    window.location.href = "{{ route('cart') }}";
                 },
                 error: function(data) {
                     $('.del_btn').attr('disabled', false);
-                    console.debug(data);
+                    alert('エラーが発生しました。');
+                    window.location.href = "{{ route('cart') }}";
                 }
             });
         });
@@ -79,7 +76,7 @@
             @foreach($cart['items'] as $k => $v)
             <tr>
                 <td><img src="/img/dummy.jpg" alt="dummy" width="100"></td>
-                <td><a href="/news/{{$v['id']}}">{{$v['title']}}</a></td>
+                <td><a href="{{ route('product', ['id' => $v['id']]) }}">{{$v['title']}}</a></td>
                 <td>{{number_format($v['price'])}}円</td>
                 <td>
                     <select name="quantity" data-id="{{$v['id']}}">
@@ -98,7 +95,7 @@
     <hr>
     合計{{number_format($cart['price'])}}円
     <hr>
-    <a href="/purchase/" class="purchase_btn">購入する</a>
+    <a href="{{ route('purchase') }}" class="purchase_btn">購入する</a>
     @endif
 </article>
 @endsection

@@ -1,4 +1,4 @@
-<html lang="en">
+<html lang="ja">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -77,8 +77,7 @@
 <body class="text-center">
 	<form class="form-signin" method="post">
 		{{ csrf_field() }}
-		login
-		<h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+		<h1 class="h3 mb-3 font-weight-normal">ログイン画面</h1>
 		<label for="inputEmail" class="sr-only">Email address</label>
 		<input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus name="email" value="{{@$result['email']}}">
 		<label for="inputPassword" class="sr-only">Password</label>
@@ -87,7 +86,7 @@
 		<p class="text-danger">メールアドレス、パスワードが一致しません。</p>
 		@endif
 		<button class="btn btn-lg btn-primary btn-block" type="submit">ログイン</button>
-		<p class="mt-5 mb-3 text-muted">&copy; 2017-2019</p>
+		<p class="mt-5 mb-3 text-muted">&copy; 2020</p>
 	</form>
 </body>
 </html>

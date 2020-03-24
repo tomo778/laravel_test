@@ -4,11 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
-use App\DataAccess\CategoryDataAccess;
 use App\Services\Payment\PaymentFactory;
-use App\Library\Common;
 use Validator;
-use App\Models\News;
+use App\Models\Product;
 use App\Services\LoggerCustom;
 use DB;
 
@@ -101,7 +99,7 @@ class PurchaseController extends Controller
 		foreach ($cart_items['items'] as $k => $v) {
 			$tmp[] = $v['id'];
 		}
-		$db_items = News::lockForUpdate()
+		$db_items = Product::lockForUpdate()
 			->whereIn('id', $tmp)
 			->get()
 			->toArray();
@@ -117,7 +115,7 @@ class PurchaseController extends Controller
 		}
 		//商品残りがある場合
 		foreach ($cart_items['items'] as $k => $v) {
-			News::where('id', $k)
+			Product::where('id', $k)
 				->decrement('num', $v['quantity']);
 		}
 		return true;
