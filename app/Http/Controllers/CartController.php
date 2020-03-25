@@ -5,17 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use App\Models\Product;
-use App\Library\Common;
-use App\Services\CartListener;
+use Breadcrumbs;
 
 class CartController extends Controller
 {
 	public function __construct()
 	{
-		$data = [
-			'cart_1' => 'カート',
-		];
-		View::share('bc', $data);
+		Breadcrumbs::push('カート');
+		View::share('Breadcrumbs', Breadcrumbs::get());
 	}
 
 	public function index()
@@ -23,7 +20,7 @@ class CartController extends Controller
 		//var_dump(session('cart'));
 		//session()->forget('cart');
 		$data = [
-			'cart' => session('cart')
+			'cart' => session('cart'),
 		];
 		return view('cart', $data);
 	}
@@ -31,6 +28,7 @@ class CartController extends Controller
 	public function addItem(Request $Request)
 	{
 		if (!$this->hasItem($Request->item_id)) {
+
 			$item_data = Product::StatusCheck()
 				->where('id', $Request->item_id)
 				->first()->toArray();
@@ -48,6 +46,8 @@ class CartController extends Controller
 			];
 		}
 
+		$this->price();
+
 		$data = [
 			'cart' => session('cart'),
 		];
@@ -55,8 +55,6 @@ class CartController extends Controller
 		if (!empty($data2)) {
 			$data = array_merge($data, $data2);
 		}
-
-		$this->price();
 
 		return view('cart', $data);
 	}

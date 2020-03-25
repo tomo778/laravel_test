@@ -5,6 +5,8 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use DB;
 use App\Services\LoggerCustom;
+use App\Services\Breadcrumbs;
+use App\Services\ProductDataAccess;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,6 +27,9 @@ class AppServiceProvider extends ServiceProvider
 	 */
 	public function register()
 	{
+		$this->app->bind('Breadcrumbs', Breadcrumbs::class);
+		$this->app->bind('ProductDataAccess', ProductDataAccess::class);
+
 		// .envを見てログ出力を行うかどうかを判別
 		if (env('APP_DEBUG') !== true) {
 			return;

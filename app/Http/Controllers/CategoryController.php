@@ -7,14 +7,12 @@ use Illuminate\Support\Facades\View;
 use App\Models\Product;
 use App\Models\RCategory;
 use App\Models\Category;
-use App\DataAccess\ProductDataAccess;
-
-use App\Library\Common;
-use Validator;
+use ProductDataAccess;
+use Breadcrumbs;
 
 class CategoryController extends Controller
 {
-	public function index(ProductDataAccess $ProductDataAccess, $id)
+	public function index($id)
 	{
 		$category = Category::find($id)->toArray();
 		$results = RCategory::select('plugin_id')
@@ -25,14 +23,13 @@ class CategoryController extends Controller
 			$tmp[] = $v['plugin_id'];
 		}
 		$paginate = Product::StatusCheck()->whereIn('id', $tmp)->paginate(6);
-		$datas = $ProductDataAccess->product_datas($paginate);
+		$datas = ProductDataAccess::product_datas($paginate);
+		Breadcrumbs::push($category['title']);
 		$data = [
 			'paginate' => $paginate,
 			'datas' => $datas,
 			'title' => $category['title'],
-			'bc' => [
-				'category_1' => $category['title']
-			]
+			'Breadcrumbs' => Breadcrumbs::get()
 		];
 		return view('category', $data);
 	}

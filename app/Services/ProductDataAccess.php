@@ -1,12 +1,13 @@
 <?php
 
-namespace App\DataAccess;
+namespace app\Services;
 
 use Illuminate\Database\DatabaseManager;
 use DB;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\RCategory;
+use Carbon\Carbon;
 
 class ProductDataAccess
 {
@@ -20,7 +21,7 @@ class ProductDataAccess
 	{
 		$c = Category::JoinCategory()
 			->whereIn('r_category.plugin_id', [$id])
-			->orderBy('m_category.id', 'desc')
+			->orderBy('m_category.id', 'asc')
 			->get();
 
 		return $c;
@@ -30,7 +31,7 @@ class ProductDataAccess
 	{
 		$result = $result->toArray();
 		$categorys = Category::JoinCategory()
-			->orderBy('m_category.id', 'desc')
+			->orderBy('m_category.id', 'asc')
 			->get();
 
 		foreach ($categorys as $k => $v) {
@@ -41,8 +42,11 @@ class ProductDataAccess
 			$categorys_tmp[$i][] = $tmp;
 		}
 		foreach ($result['data'] as $k => $v) {
+			//日付format変更
+			$dt = new Carbon($v['created_at']);
+			$result['data'][$k]['created_at_format'] = $dt->format('Y年m月d日');
 			if (isset($categorys_tmp[$v['id']])) {
-				(array) $result['data'][$k]['category'] = $categorys_tmp[$v['id']];
+				$result['data'][$k]['category'] = $categorys_tmp[$v['id']];
 			}
 		}
 		return $result['data'];

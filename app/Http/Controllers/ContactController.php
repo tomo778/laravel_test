@@ -5,15 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use Validator;
+use Breadcrumbs;
 
 class ContactController extends Controller
 {
 	public function __construct()
 	{
-		$data = [
-			'contact_1' => 'お問い合わせ',
-		];
-		View::share('bc', $data);
+		Breadcrumbs::push('お問い合わせ');
+		View::share('Breadcrumbs', Breadcrumbs::get());
 	}
 
 	public function index ()

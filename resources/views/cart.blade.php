@@ -66,14 +66,14 @@
         <p>すでにカートに入っています。</p>
     </div>
     @endif
-    @if (empty($cart))
+    @if (empty(@$cart['items']))
     <div class="thint noimage">
         <p>現在カートはからです。</p>
     </div>
     @else
     <table class="table">
         <tbody>
-            @foreach($cart['items'] as $k => $v)
+            @foreach(@$cart['items'] as $k => $v)
             <tr>
                 <td><img src="/img/dummy.jpg" alt="dummy" width="100"></td>
                 <td><a href="{{ route('product', ['id' => $v['id']]) }}">{{$v['title']}}</a></td>
@@ -91,9 +91,9 @@
         </tbody>
     </table>
     @endif
-    @if (!empty($cart))
+    @if (!empty(@$cart['items']))
     <hr>
-    合計{{number_format($cart['price'])}}円
+    合計{{number_format(@$cart['price'])}}円
     <hr>
     <a href="{{ route('purchase') }}" class="purchase_btn">購入する</a>
     @endif

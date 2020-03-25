@@ -16,7 +16,7 @@ class ComposerServiceProvider extends ServiceProvider
             ->StatusCheck()
             ->where('r_category.plugin', 'product')
             ->groupBy('m_category.id')
-            ->orderBy('m_category.id','desc')
+            ->orderBy('m_category.id','asc')
             ->get();
             $view->with('side_categorys', $results);
         });

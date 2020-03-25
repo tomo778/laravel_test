@@ -9,7 +9,7 @@
         <span class=""><a href="{{ route('category', ['id' => $v2['category_id']]) }}">{{$v2['title']}}</a></span>
         @endforeach
         <div class="info">
-            <time>{{$v['created_at']}}</time>
+            <time>{{@$v['created_at_format']}}</time>
         </div>
     </div>
 </article>

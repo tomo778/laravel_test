@@ -12,7 +12,8 @@
 */
 
 //公開側
-Route::get('/', 'IndexController@index');
+Route::get('/', 'IndexController@index')
+->name('index');
 
 Route::get('/product/{id}', 'DetailController@index')
 ->name('product');
