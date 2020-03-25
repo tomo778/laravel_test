@@ -30,6 +30,3 @@
 </div>
 <hr>
 @endif
-
-<form method="post" action="" @if (!empty(@$result['id'])) name="update" @endif>
-{{ csrf_field() }}

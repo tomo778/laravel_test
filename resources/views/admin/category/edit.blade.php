@@ -4,7 +4,8 @@
 @section('body')
 
 @include('admin._include.edit_header')
-<input type="hidden" name="val" value="{{ route('admin_val_category') }}">
+<form method="post" action="{{ request()->fullUrl() }}" name="{{ route('admin_val_category') }}">
+{{ csrf_field() }}
 
 @if (!empty($result['id']))
 <div class="form-group row">

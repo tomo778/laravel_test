@@ -4,7 +4,9 @@
 @section('body')
 
 @include('admin._include.edit_header')
-<input type="hidden" name="val" value="{{ route('admin_val_staff') }}">
+<form method="post" action="{{ request()->fullUrl() }}" name="{{ route('admin_val_staff') }}">
+{{ csrf_field() }}
+
 @if (!empty(@$result['id']))
 <div class="form-group row">
 	<label for="inputEmail" class="col-sm-2 col-form-label">id</label>

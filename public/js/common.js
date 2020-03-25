@@ -18,13 +18,9 @@ $(function () {
         //通常のアクションをキャンセルする
         event.preventDefault();
         //Formの参照を取る
-        var val = $('[name=val]').val();
         $form = $(this).parents('form:first');
-        // if ($form.attr('name') == 'update') {
-        //     var val = 'val';
-        // }
         $.ajax({
-            url: val,
+            url: $form.attr('name'),
             type: $form.attr('method'),
             data: $form.serialize(),
             timeout: 10000,
