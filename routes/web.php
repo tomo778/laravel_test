@@ -68,16 +68,22 @@ foreach ($v as $k => $vv) {
 	Route::get('/admin/' . $k . '/', "Admin\\{$k2}Controller@index")
 	->middleware('check_admin_login')
 	->name('admin_'. $k);
+	
 	Route::get('/admin/' . $k . '/edit/', "Admin\\{$k2}Controller@create")
 	->middleware('check_admin_login')
 	->name('admin_create_'. $k);
+
 	Route::post('/admin/' . $k . '/edit/val', "Admin\\{$k2}Controller@val")
-	->middleware('check_admin_login');
+	->middleware('check_admin_login')
+	->name('admin_val_'. $k);
+
 	Route::post('/admin/' . $k . '/edit/', "Admin\\{$k2}Controller@create_exe")
 	->middleware('check_admin_login');
+
 	Route::get('/admin/' . $k . '/edit/{id}', "Admin\\{$k2}Controller@update")
 	->middleware('check_admin_login')
 	->name('admin_update_'. $k);
+
 	Route::post('/admin/' . $k . '/edit/{id}', "Admin\\{$k2}Controller@update_exe")
 	->middleware('check_admin_login');
 }

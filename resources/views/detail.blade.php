@@ -14,7 +14,7 @@
     <hr>
     <p>価格：{{number_format($result['price'])}}円</p>
     <hr>
-    <form action="/cart/" method="post">
+    <form action="{{route('cart')}}" method="post">
         {{ csrf_field() }}
         数量を選択
         <select name="quantity">

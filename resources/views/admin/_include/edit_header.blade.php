@@ -22,14 +22,14 @@
 	</div>
 </div>
 @endif
-<form method="post" action="">
-	{{ csrf_field() }}
-
-	@if (!empty($result['id']))
-	<div class="form-group row">
-		<div class="col-sm-10">
+@if (!empty(@$result['id']))
+<div class="form-group row">
+	<div class="col-sm-10">
 		登録日：{{@$result['created_at']}}<br>更新日：{{@$result['updated_at']}}
-		</div>
 	</div>
-	<hr>
-	@endif
+</div>
+<hr>
+@endif
+
+<form method="post" action="" @if (!empty(@$result['id'])) name="update" @endif>
+{{ csrf_field() }}

@@ -4,7 +4,7 @@
 @section('body')
 
 @include('admin._include.edit_header')
-
+	
 	@if (!empty($result['id']))
 	<div class="form-group row">
 		<label for="inputEmail" class="col-sm-2 col-form-label">id</label>
@@ -30,7 +30,7 @@
 		</div>
 	</div>
 
-@include('admin._include.edit_footer')
+	@include('admin._include.edit_footer')
 
 </form>
 
