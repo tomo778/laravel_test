@@ -18,11 +18,11 @@ $(function () {
         //通常のアクションをキャンセルする
         event.preventDefault();
         //Formの参照を取る
-        var val = '/val';
+        var val = $('[name=val]').val();
         $form = $(this).parents('form:first');
-        if ($form.attr('name') == 'update') {
-            var val = 'val';
-        }
+        // if ($form.attr('name') == 'update') {
+        //     var val = 'val';
+        // }
         $.ajax({
             url: val,
             type: $form.attr('method'),
