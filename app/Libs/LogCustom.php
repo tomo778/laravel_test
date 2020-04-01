@@ -1,11 +1,11 @@
 <?php
-namespace App\Services;
+namespace app\Libs;
 
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\RotatingFileHandler;
 
-class LoggerCustom
+class LogCustom
 {
 	/**
 	 * Register any application services.

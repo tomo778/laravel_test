@@ -1,31 +1,21 @@
 <?php
 
 namespace App\Services;
-use App\Models\Staff;
-use App\Services\LoggerCustom;
 
-class AdminLogin
+use App\Models\Staff;
+use App\Libs\LogCustom;
+
+class AdminLoginService
 {
-	// /**
-	//  * Determine if the validation rule passes.
-	//  *
-	//  * @param  string  $attribute
-	//  * @param  mixed  $value
-	//  * @return bool
-	//  */
 	static public function auth_check($request)
 	{
-		$data = Staff::where('email',$request['email'])->first();
+		$data = Staff::where('email', $request['email'])->first();
 		//認証処理
-		if(password_verify($request['password'], $data['password'])){
-			//loginデータ作成
+		if (password_verify($request['password'], $data['password'])) {
 			self::staff_data_init();
 			self::login_data_init($data);
-			//log
-			$LoggerCustom = new LoggerCustom('staff');
-			$mes = 'id: ' . $data['id'] . ' ' . $data['name'];
-			$LoggerCustom->single('/logs/staff.log', $mes);
-
+			$LogCustom = new LogCustom('staff');
+			$LogCustom->single('/logs/staff.log', 'id: ' . $data['id'] . ' ' . $data['name']);
 			return true;
 		}
 	}

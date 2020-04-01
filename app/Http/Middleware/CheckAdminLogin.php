@@ -5,9 +5,9 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\View;
 use App\Models\Category;
-use App\Services\AdminLogin;
+use App\Services\AdminLoginService;
 
-class Check_admin_login
+class CheckAdminLogin
 {
 	/**
 	 * Handle an incoming request.
@@ -19,7 +19,7 @@ class Check_admin_login
 	public function handle($request, Closure $next)
 	{
 		//認証処理
-		if(!AdminLogin::login_check()){
+		if(!AdminLoginService::login_check()){
 			return redirect('/admin/login/');
 		}
 		View::share('category', Category::all()->keyBy('id')->toArray());

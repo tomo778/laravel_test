@@ -1,15 +1,10 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-// 以下を追加
-use App\Http\Controllers\Controller;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\View;
-use App\Models\Staff;
-use App\Library\Common;
-use Validator;
-use App\Services\AdminLogin;
+use App\Services\AdminLoginService;
 
 class LoginController extends Controller
 {
@@ -20,7 +15,7 @@ class LoginController extends Controller
 	public function login_check (Request $request)
 	{
 		//認証処理
-		if(!AdminLogin::auth_check($request)){
+		if(!AdminLoginService::auth_check($request)){
 			$request['err'] = true;
 			return view('admin/login',['result'=>$request]);
 		}
@@ -29,7 +24,7 @@ class LoginController extends Controller
 
 	public function logout ()
 	{
-		AdminLogin::logout();
+		AdminLoginService::logout();
 		return redirect('admin/login');
 	}
 }

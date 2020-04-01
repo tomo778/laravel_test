@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
-//use App\Category;
 use App\Models\Category;
 use App\Library\Common;
 use Validator;
@@ -47,8 +46,6 @@ class CategoryController extends Controller
 			DB::commit();
 		} catch (\PDOException $e) {
 			DB::rollBack();
-			$LoggerCustom = new LoggerCustom(get_class());
-			$LoggerCustom->single('/logs/admin.log', 'PDOException Error. Rollback was executed.');
 			abort('500');
 		}
 		return redirect('admin/category/edit/' . $request->id)->with('one_time_mes', 2);

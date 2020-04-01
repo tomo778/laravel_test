@@ -230,7 +230,6 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         //追加
         'Breadcrumbs' => App\Facades\Breadcrumbs::class,
-        'ProductDataAccess' => App\Facades\ProductDataAccess::class,
         
     ],
 

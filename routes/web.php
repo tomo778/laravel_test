@@ -56,7 +56,7 @@ Route::post('/cart/quantity/', 'CartController@quantityChange')
 
 //管理側
 Route::get('/admin/', 'Admin\IndexController@index')
-->middleware('check_admin_login');
+->middleware('CheckAdminLogin');
 Route::get('/admin/login/', 'Admin\LoginController@login');
 Route::post('/admin/login/', 'Admin\LoginController@login_check');
 Route::get('/admin/logout/', 'Admin\LoginController@logout')
@@ -66,26 +66,26 @@ $v = Config('const.admin_side_nav');
 foreach ($v as $k => $vv) {
 	$k2 = ucfirst($k); //先頭大文字
 	Route::get('/admin/' . $k . '/', "Admin\\{$k2}Controller@index")
-	->middleware('check_admin_login')
+	->middleware('CheckAdminLogin')
 	->name('admin_'. $k);
 	
 	Route::get('/admin/' . $k . '/edit/', "Admin\\{$k2}Controller@create")
-	->middleware('check_admin_login')
+	->middleware('CheckAdminLogin')
 	->name('admin_create_'. $k);
 
 	Route::post('/admin/' . $k . '/edit/val', "Admin\\{$k2}Controller@val")
-	->middleware('check_admin_login')
+	->middleware('CheckAdminLogin')
 	->name('admin_val_'. $k);
 
 	Route::post('/admin/' . $k . '/edit/', "Admin\\{$k2}Controller@create_exe")
-	->middleware('check_admin_login');
+	->middleware('CheckAdminLogin');
 
 	Route::get('/admin/' . $k . '/edit/{id}', "Admin\\{$k2}Controller@update")
-	->middleware('check_admin_login')
+	->middleware('CheckAdminLogin')
 	->name('admin_update_'. $k);
 
 	Route::post('/admin/' . $k . '/edit/{id}', "Admin\\{$k2}Controller@update_exe")
-	->middleware('check_admin_login');
+	->middleware('CheckAdminLogin');
 }
 
 // 送信メール本文のプレビュー

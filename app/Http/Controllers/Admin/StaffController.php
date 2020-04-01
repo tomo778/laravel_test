@@ -55,8 +55,6 @@ class StaffController extends Controller
 				DB::commit();
 			} catch (\PDOException $e) {
 				DB::rollBack();
-				$LoggerCustom = new LoggerCustom(get_class());
-				$LoggerCustom->single('/logs/admin.log', 'PDOException Error. Rollback was executed.');
 				abort('500');
 			}
 			return redirect('admin/staff/edit/' . $request->id)->with('one_time_mes', 2);

@@ -14,10 +14,9 @@ class PaymentFactory
     if ($purchase['payway'] == Config('const.PAYWAY_CARD')) {
         $klass = new \App\Services\Payment\CreditCard;
     }
-    //request()->get('payway')
-    //if (empty($klass)) {
-      //throw new \Exception('invalid payway');
-    //}
+    if (empty($klass)) {
+      throw new \Exception('nothig class');
+    }
     return $klass;
   }
 }

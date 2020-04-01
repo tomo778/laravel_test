@@ -1,6 +1,6 @@
 <?php
 
-namespace app\Services;
+namespace app\Libs;
 
 class Breadcrumbs
 {

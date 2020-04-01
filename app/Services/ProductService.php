@@ -3,13 +3,12 @@
 namespace app\Services;
 
 use Illuminate\Database\DatabaseManager;
-use DB;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\RCategory;
 use Carbon\Carbon;
 
-class ProductDataAccess
+class ProductService
 {
 	protected $db;
 	public function __construct(DatabaseManager $db)
@@ -27,7 +26,7 @@ class ProductDataAccess
 		return $c;
 	}
 
-	public function product_datas($result)
+	public function ProductProcessing($result)
 	{
 		$result = $result->toArray();
 		$categorys = Category::JoinCategory()
@@ -50,5 +49,31 @@ class ProductDataAccess
 			}
 		}
 		return $result['data'];
+	}
+
+	public function TopPage()
+	{
+		$paginate = Product::StatusCheck()->paginate(6);
+		$datas = $this->ProductProcessing($paginate);
+		return ['paginate' => $paginate, 'datas' => $datas];
+	}
+
+	public function DetailPage($id)
+	{
+		return Product::StatusCheck()->find($id);
+	}
+
+	public function CategoryDetail($id)
+	{
+		$results = RCategory::select('plugin_id')
+			->where('category_id', $id)
+			->where('category', 'product')
+			->get()->toArray();
+		foreach ($results as $k => $v) {
+			$tmp[] = $v['plugin_id'];
+		}
+		$paginate = Product::StatusCheck()->whereIn('id', $tmp)->paginate(6);
+		$datas = $this->ProductProcessing($paginate);
+		return compact('paginate','datas');
 	}
 }
