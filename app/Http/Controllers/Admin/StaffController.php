@@ -41,8 +41,7 @@ class StaffController extends Controller
 
 		public function update_exe (Request $request)
 		{
-			DB::beginTransaction();
-			try {
+			DB::transaction(function () use ($request) {
 				if (!empty($request->password)) {
 					$request->merge([
 						'password' => password_hash($request->password, PASSWORD_DEFAULT),
@@ -52,11 +51,7 @@ class StaffController extends Controller
 				}
 				$q = Staff::findOrFail($request->id);
 				$q->fill($request->all())->save();
-				DB::commit();
-			} catch (\PDOException $e) {
-				DB::rollBack();
-				abort('500');
-			}
+			});
 			return redirect('admin/staff/edit/' . $request->id)->with('one_time_mes', 2);
 		}
 

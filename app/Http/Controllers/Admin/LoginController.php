@@ -8,21 +8,22 @@ use App\Services\AdminLoginService;
 
 class LoginController extends Controller
 {
-	public function login ()
+	public function login()
 	{
-		return view('admin/login', ['result'=>'']);
+		return view('admin/login', ['result' => '']);
 	}
-	public function login_check (Request $request)
+
+	public function loginCheck(Request $request)
 	{
 		//認証処理
-		if(!AdminLoginService::auth_check($request)){
+		if (!AdminLoginService::authCheck($request)) {
 			$request['err'] = true;
-			return view('admin/login',['result'=>$request]);
+			return view('admin/login', ['result' => $request]);
 		}
 		return redirect('admin')->with('one_time_mes', 1);
 	}
 
-	public function logout ()
+	public function logout()
 	{
 		AdminLoginService::logout();
 		return redirect('admin/login');

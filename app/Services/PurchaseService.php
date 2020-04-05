@@ -13,7 +13,7 @@ class PurchaseService
 		$this->db = $db;
 	}
 
-	public function DecrementQuantity()
+	public function decrementQuantity()
 	{
 		$cart_items = session('cart');
 		foreach ($cart_items['items'] as $k => $v) {

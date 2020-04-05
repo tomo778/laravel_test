@@ -3,8 +3,6 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use DB;
-use App\Libs\LogCustom;
 use App\Libs\Breadcrumbs;
 
 class AppServiceProvider extends ServiceProvider
@@ -16,10 +14,7 @@ class AppServiceProvider extends ServiceProvider
 	 */
 	public function boot()
 	{
-		//
-        if ($this->app->environment() === 'production') {
-            \URL::forceScheme('https');
-        }
+
 	}
 
 	/**
@@ -29,7 +24,7 @@ class AppServiceProvider extends ServiceProvider
 	 */
 	public function register()
 	{
-		$this->app->bind('Breadcrumbs', Breadcrumbs::class);
+		//$this->app->bind('Breadcrumbs', Breadcrumbs::class);
 
 		// // .envを見てログ出力を行うかどうかを判別
 		// if (env('APP_DEBUG') !== true) {

@@ -2,6 +2,7 @@
 
 namespace App\Services\Payment;
 use Illuminate\Http\Request;
+use App\Exceptions\PurchaseException;
 
 class PaymentFactory
 {
@@ -15,7 +16,7 @@ class PaymentFactory
         $klass = new \App\Services\Payment\CreditCard;
     }
     if (empty($klass)) {
-      throw new \Exception('nothig class');
+      throw new PurchaseException('nothig class');
     }
     return $klass;
   }

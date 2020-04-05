@@ -9,9 +9,9 @@ use App\Services\ProductService;
 
 class IndexController extends Controller
 {
-	public function index(ProductService $ProductService)
+	public function index(ProductService $productService)
 	{
-		$datas = $ProductService->TopPage();
+		$datas = $productService->topPage();
 		return view('index', ['paginate' => $datas['paginate'], 'datas' => $datas['datas']]);
 	}
 }

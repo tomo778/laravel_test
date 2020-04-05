@@ -39,15 +39,10 @@ class CategoryController extends Controller
 
 	public function update_exe (Request $request)
 	{
-		DB::beginTransaction();
-		try {
+		DB::transaction(function () use ($request) {
 			$q = Category::findOrFail($request->id);
 			$q->fill($request->all())->save();
-			DB::commit();
-		} catch (\PDOException $e) {
-			DB::rollBack();
-			abort('500');
-		}
+		});
 		return redirect('admin/category/edit/' . $request->id)->with('one_time_mes', 2);
 	}
 

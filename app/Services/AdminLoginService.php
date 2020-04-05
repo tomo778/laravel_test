@@ -7,27 +7,27 @@ use App\Libs\LogCustom;
 
 class AdminLoginService
 {
-	static public function auth_check($request)
+	static public function authCheck($request)
 	{
 		$data = Staff::where('email', $request['email'])->first();
 		//認証処理
 		if (password_verify($request['password'], $data['password'])) {
-			self::staff_data_init();
-			self::login_data_init($data);
+			self::staffDataInit();
+			self::loginDataInit($data);
 			$LogCustom = new LogCustom('staff');
 			$LogCustom->single('/logs/staff.log', 'id: ' . $data['id'] . ' ' . $data['name']);
 			return true;
 		}
 	}
 
-	static public function login_check()
+	static public function loginCheck()
 	{
 		if (!empty(session('staff_data.email'))) {
 			return true;
 		}
 	}
 
-	static public function staff_data_init()
+	static public function staffDataInit()
 	{
 		$staffs_tmp = Staff::all();
 		foreach ($staffs_tmp as $k => $v) {
@@ -36,12 +36,12 @@ class AdminLoginService
 		session(['admin_datas_staffs' => $staffs]);
 	}
 
-	static public function staff_data()
+	static public function staffData()
 	{
 		return session('staff_data');
 	}
 
-	static public function login_data_init($data)
+	static public function loginDataInit($data)
 	{
 		session(['staff_data' => $data]);
 	}

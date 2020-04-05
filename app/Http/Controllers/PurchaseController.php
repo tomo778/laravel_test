@@ -3,22 +3,22 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\View;
 use App\Services\Payment\PaymentFactory;
 use Validator;
-use App\Models\Product;
 use DB;
-use Log;
 use App\Services\PurchaseService;
-
 //Mail
 use Illuminate\Support\Facades\Mail;
 use App\Mail\Purchase;
 
 class PurchaseController extends Controller
 {
-	private $log_name = 'PurchaseController';
-	private $log_path = '/logs/purchase.log';
+	private $purchaseService;
+
+	public function __construct(PurchaseService $purchaseService)
+	{
+		$this->purchaseService = $purchaseService;
+	}
 
 	public function index()
 	{
@@ -45,37 +45,41 @@ class PurchaseController extends Controller
 		return view('purchase.confirm', $array_view);
 	}
 
-	public function finish(PurchaseService $PurchaseService)
+	public function finish()
 	{
-		try {
-			DB::transaction(function () {
-				//商品個数管理
-				if ($PurchaseService->DecrementQuantity() == false) {
-					DB::rollBack();
-					return view('purchase.err_quantity');
-				};
-				//決済処理
-				$payment = PaymentFactory::create();
-				$payment->execute();
-			});
-		} catch (\PDOException $e) {
-			Log::debug($e->getMessage());
-			abort('500');
-		} catch (\Exception $e) {
-			Log::debug($e->getMessage());
-			abort('500');
-		}
-		//メール送信
+		$this->purchase();
+		$this->sendMail();
+		$this->saveSession();
+		return view('purchase.finish');
+	}
+
+	private function purchase()
+	{
+		DB::transaction(function () {
+			//商品個数管理
+			if ($this->purchaseService->decrementQuantity() == false) {
+				DB::rollBack();
+				return view('purchase.err_quantity');
+			};
+			//決済処理
+			$payment = PaymentFactory::create();
+			$payment->execute();
+		});
+	}
+
+	private function sendMail()
+	{
 		//$to = 'test@gmail.com'; $cc = 'cc@mail.com'; $bcc = 'bcc@mail.com';
 		//Mail::to($to)
 		//->cc($cc)
 		//->bcc($bcc)
 		//->send(new Purchase());
-		//セッション関連
+	}
+	private function saveSession()
+	{
 		session()->regenerateToken();
 		session()->forget('cart');
 		session()->forget('purchase');
-		return view('purchase.finish');
 	}
 
 	public function val($request)

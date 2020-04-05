@@ -19,7 +19,7 @@ class CheckAdminLogin
 	public function handle($request, Closure $next)
 	{
 		//認証処理
-		if(!AdminLoginService::login_check()){
+		if(!AdminLoginService::loginCheck()){
 			return redirect('/admin/login/');
 		}
 		View::share('category', Category::all()->keyBy('id')->toArray());

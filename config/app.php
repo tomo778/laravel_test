@@ -229,8 +229,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         //追加
-        'Breadcrumbs' => App\Facades\Breadcrumbs::class,
-        
+        //'Breadcrumbs' => App\Facades\Breadcrumbs::class,
     ],
 
 ];

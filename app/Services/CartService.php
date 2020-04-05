@@ -2,7 +2,6 @@
 
 namespace app\Services;
 
-use Illuminate\Database\DatabaseManager;
 use App\Models\Product;
 
 class CartService

@@ -16,7 +16,7 @@ class ProductService
 		$this->db = $db;
 	}
 
-	public function product_detail($id = null)
+	public function productDetail($id = null)
 	{
 		$c = Category::JoinCategory()
 			->whereIn('r_category.plugin_id', [$id])
@@ -26,7 +26,7 @@ class ProductService
 		return $c;
 	}
 
-	public function ProductProcessing($result)
+	public function productProcessing($result)
 	{
 		$result = $result->toArray();
 		$categorys = Category::JoinCategory()
@@ -51,29 +51,36 @@ class ProductService
 		return $result['data'];
 	}
 
-	public function TopPage()
+	public function topPage()
 	{
 		$paginate = Product::StatusCheck()->paginate(6);
-		$datas = $this->ProductProcessing($paginate);
+		$datas = $this->productProcessing($paginate);
 		return ['paginate' => $paginate, 'datas' => $datas];
 	}
 
-	public function DetailPage($id)
+	public function detailPage($id)
 	{
-		return Product::StatusCheck()->find($id);
+		$results = Product::StatusCheck()->find($id);
+		if (empty($results)) {
+			abort('404');
+		}
+		return $results;
 	}
 
-	public function CategoryDetail($id)
+	public function categoryDetail($id)
 	{
 		$results = RCategory::select('plugin_id')
 			->where('category_id', $id)
 			->where('category', 'product')
 			->get()->toArray();
 		foreach ($results as $k => $v) {
-			$tmp[] = $v['plugin_id'];
+			$plugin_ids[] = $v['plugin_id'];
 		}
-		$paginate = Product::StatusCheck()->whereIn('id', $tmp)->paginate(6);
-		$datas = $this->ProductProcessing($paginate);
+		if (empty($plugin_ids)) {
+			abort('404');
+		}
+		$paginate = Product::StatusCheck()->whereIn('id', $plugin_ids)->paginate(6);
+		$datas = $this->productProcessing($paginate);
 		return compact('paginate','datas');
 	}
 }

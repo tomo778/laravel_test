@@ -13,7 +13,7 @@ class CategoryService
 		$this->db = $db;
 	}
 
-	public function product_detail($id = null)
+	public function productDetail($id = null)
 	{
 		$categorys = Category::JoinCategory()
 			->whereIn('r_category.plugin_id', [$id])

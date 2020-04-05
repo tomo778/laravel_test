@@ -7,14 +7,14 @@ use Illuminate\Support\Facades\View;
 use App\Models\Product;
 use App\Services\CategoryService;
 use App\Services\ProductService;
-use Breadcrumbs;
+use App\Libs\Breadcrumbs;
 
 class DetailController extends Controller
 {
-	public function index($id, CategoryService $CategoryService, ProductService $ProductService)
+	public function index($id, CategoryService $categoryService, ProductService $productService)
 	{
-		$request = $ProductService->DetailPage($id);
-		$categorys = $CategoryService->product_detail($id);
+		$request = $productService->detailPage($id);
+		$categorys = $categoryService->productDetail($id);
 		$category = collect($categorys)->first()->toArray();
 		Breadcrumbs::push($category['title'], route('category',$category['category_id']));
 		Breadcrumbs::push($request->title);

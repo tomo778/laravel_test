@@ -5,13 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\View;
-use App\Services\LoggerCustom;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\ACategory;
 use App\Models\RCategory;
 use Validator;
-use Log;
 use DB;
 
 class ProductController extends Controller
@@ -32,6 +30,7 @@ class ProductController extends Controller
 		$Product->fill($request->all())->save();
 		$last_insert_id = $Product->id;
 		RCategory::InsertCategory($request->category, 'product', 'product', $last_insert_id);
+		$this->aCategorySet();
 		return redirect('admin/product/edit/' . $last_insert_id)->with('one_time_mes', 1);
 	}
 
@@ -39,31 +38,39 @@ class ProductController extends Controller
 	{
 		$request = Product::findOrFail($id);
 		$request['category'] = RCategory::where('plugin_id', '=', $request->id)
-		->where('plugin', '=', 'product')
-		->where('category', '=', 'product')
-		->get()->keyBy('category_id')->toArray();
+			->where('plugin', '=', 'product')
+			->where('category', '=', 'product')
+			->get()->keyBy('category_id')->toArray();
 		return view('admin.product.edit', ['result' => $request]);
 	}
 
 	public function update_exe(Request $request)
 	{
-		DB::beginTransaction();
-		try {
-			//Product::lockForUpdate()->findOrFail($request->id);
+		DB::transaction(function () use ($request) {
 			$q = Product::findOrFail($request->id);
 			$q->fill($request->all())->save();
-			//
 			RCategory::where('plugin_id', '=', $request->id)
 				->where('plugin', '=', 'product')
 				->delete();
-			//
 			RCategory::InsertCategory($request->category, 'product', 'product', $request->id);
-			DB::commit();
-		} catch (\PDOException $e) {
-			DB::rollBack();
-			abort('500');
-		}
+			$this->aCategorySet();
+		});
 		return redirect('admin/product/edit/' . $request->id)->with('one_time_mes', 2);
+	}
+
+	public function aCategorySet()
+	{
+		$results = Category::select('m_category.id', 'm_category.title', 'm_category.text')
+			->JoinCategory()
+			->JoinCategoryProduct()
+			->StatusCheck()
+			->where('r_category.plugin', 'product')
+			->groupBy('m_category.id')
+			->orderBy('m_category.id', 'asc')
+			->get()
+			->toArray();
+		ACategory::truncate();
+		ACategory::insert($results);
 	}
 
 	public function val(Request $request)

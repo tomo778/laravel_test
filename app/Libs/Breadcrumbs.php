@@ -4,15 +4,15 @@ namespace app\Libs;
 
 class Breadcrumbs
 {
-	public $array = array();
+	static public $array = array();
 
-	public function push($text, $url = null)
+	static public function push($text, $url = null)
 	{
-		$this->array[$url] = $text;
+		self::$array[$url] = $text;
 	}
 
-	public function get()
+	static public function get()
 	{
-		return $this->array;
+		return self::$array;
 	}
 }

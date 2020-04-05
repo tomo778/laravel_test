@@ -58,7 +58,7 @@ Route::post('/cart/quantity/', 'CartController@quantityChange')
 Route::get('/admin/', 'Admin\IndexController@index')
 ->middleware('CheckAdminLogin');
 Route::get('/admin/login/', 'Admin\LoginController@login');
-Route::post('/admin/login/', 'Admin\LoginController@login_check');
+Route::post('/admin/login/', 'Admin\LoginController@loginCheck');
 Route::get('/admin/logout/', 'Admin\LoginController@logout')
 ->name('admin_logout');
 
