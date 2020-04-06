@@ -19,6 +19,7 @@ class Product extends Model
         'id',
         '_token',
         'category',
+        'file_data',
     ];
 
     public function scopeStatusCheck($query)

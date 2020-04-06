@@ -19,10 +19,15 @@ $(function () {
         event.preventDefault();
         //Formの参照を取る
         $form = $(this).parents('form:first');
+        var form = $(this).parents('form:first').get()[0];
+
+        // FormData オブジェクトを作成
+        var formData = new FormData(form);
+
         $.ajax({
             url: $form.attr('name'),
             type: $form.attr('method'),
-            data: $form.serialize(),
+            data: formData,
             timeout: 10000,
             // beforeSend: function (xhr, settings) {
             //     //Buttonを無効にする
@@ -35,6 +40,10 @@ $(function () {
             //     $('#spin').remove();
             //     $('.edit_btn').attr('disabled', false);
             // },
+            // Ajaxがdataを整形しない指定
+            processData: false,
+            // contentTypeもfalseに指定
+            contentType: false,
             success: function (result, textStatus, xhr) {
                 ret = jQuery.parseJSON(result);
                 //Alertで送信結果を表示する

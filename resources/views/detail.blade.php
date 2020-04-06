@@ -8,7 +8,11 @@
     <span class="plist"><a href="{{ route('category', ['id' => $v2['category_id']]) }}">{{$v2->title}}</a></span>
     @endforeach
     <hr>
-    <img src="/img/dummy.jpg" alt="dummy">
+    @if (empty($result['file_name']))
+    <img src="{{Config::get('const.noimg_path')}}">
+    @else
+    <img src="/files/{{@$result['file_name']}}?{{@$result['updated_at']}}">
+    @endif
     <hr>
     <p>{!! nl2br(e($result['text'])) !!}</p>
     <hr>

@@ -16,6 +16,9 @@ return [
 	*/
 
 	'site_name' => 'テストECサイト',
+	'noimg_path' => '/img/noimg.jpg',
+	'file_path' => 'public/',
+	'thumbnail_path' => 'public/thumbnail/',
 
 	/*
 	|--------------------------------------------------------------------------

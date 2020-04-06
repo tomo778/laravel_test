@@ -61,6 +61,9 @@ class ProductService
 	public function detailPage($id)
 	{
 		$results = Product::StatusCheck()->find($id);
+		//日付format変更
+		$dt = new Carbon($results['created_at']);
+		$results['created_at_format'] = $dt->format('Y年m月d日');
 		if (empty($results)) {
 			abort('404');
 		}
@@ -81,6 +84,6 @@ class ProductService
 		}
 		$paginate = Product::StatusCheck()->whereIn('id', $plugin_ids)->paginate(6);
 		$datas = $this->productProcessing($paginate);
-		return compact('paginate','datas');
+		return compact('paginate', 'datas');
 	}
 }

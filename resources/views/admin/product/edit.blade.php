@@ -56,6 +56,27 @@
 			<div class="text-danger" data-errmes="num"></div>
 		</div>
 	</div>
+
+	<div class="form-group row">
+		<label for="inputEmail" class="col-sm-2 col-form-label">画像</label>
+		<div class="col-sm-10">
+			<div class="custom-file">
+				<input type="hidden" name="file_name" value="{{@$result['file_name']}}">
+				<input type="file" id="file_01" name="file_data" class="custom-file-input" id="customFile">
+				<label class="custom-file-label" for="customFile">{{@$result['file_name']}}</label>
+			</div>
+			<div class="text-danger" data-errmes="file_name"></div>
+		</div>
+	</div>
+	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+	<script>
+		$(function() {
+			$('#file_01').on('change', function() {
+				$('.custom-file-label').text($(this).prop('files')[0].name);
+				$('[name=file_name]').val($(this).prop('files')[0].name);
+			});
+		});
+	</script>
 	<div class="form-group row">
 		<label for="inputEmail" class="col-sm-2 col-form-label">カテゴリ</label>
 		<div class="col-sm-10">

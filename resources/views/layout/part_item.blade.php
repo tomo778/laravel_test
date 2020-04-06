@@ -1,6 +1,12 @@
 <article class="blog">
     <div class="thumb">
-        <a href="{{ route('product', ['id' => $v['id']]) }}"><img src="/img/dummy.jpg" alt="dummy" /></a>
+        <a href="{{ route('product', ['id' => $v['id']]) }}">
+            @if (empty($v['file_name']))
+            <img src="{{Config::get('const.noimg_path')}}" alt="dummy" width="100">
+            @else
+            <img src="/storage/thumbnail/{{@$v['file_name']}}?{{@$v['updated_at']}}" alt="dummy" width="100">
+            @endif
+        </a>
     </div>
     <div class="bbox">
         <div class="title"><a href="{{ route('product', ['id' => $v['id']]) }}">{{$v['title']}}</a></div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 // 以下を追加
 use App\Http\Controllers\Controller;
+use App\Services\FileService;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
@@ -14,6 +15,13 @@ use DB;
 
 class ProductController extends Controller
 {
+	private $fileService;
+
+	public function __construct(FileService $fileService)
+	{
+		$this->fileService = $fileService;
+	}
+
 	public function index()
 	{
 		$result = Product::paginate(10);
@@ -27,6 +35,12 @@ class ProductController extends Controller
 
 	public function create_exe(Request $request, Product $Product)
 	{
+		if ($request->file('file_data') !== null) {
+			$fileName = $this->fileService->addFile($request->file('file_data'));
+			$request->merge([
+				'file_name' => $fileName,
+			]);
+		}
 		$Product->fill($request->all())->save();
 		$last_insert_id = $Product->id;
 		RCategory::InsertCategory($request->category, 'product', 'product', $last_insert_id);
@@ -47,15 +61,27 @@ class ProductController extends Controller
 	public function update_exe(Request $request)
 	{
 		DB::transaction(function () use ($request) {
+			if ($request->file('file_data') !== null) {
+				$this->fileService->removeFile($request->id);
+				$fileName = $this->fileService->addFile($request->file('file_data'));
+				$request->merge([
+					'file_name' => $fileName,
+				]);
+			}
 			$q = Product::findOrFail($request->id);
 			$q->fill($request->all())->save();
-			RCategory::where('plugin_id', '=', $request->id)
-				->where('plugin', '=', 'product')
-				->delete();
-			RCategory::InsertCategory($request->category, 'product', 'product', $request->id);
+			$this->rCategorySet($request);
 			$this->aCategorySet();
 		});
 		return redirect('admin/product/edit/' . $request->id)->with('one_time_mes', 2);
+	}
+
+	public function rCategorySet($request)
+	{
+		RCategory::where('plugin_id', '=', $request->id)
+			->where('plugin', '=', 'product')
+			->delete();
+		RCategory::InsertCategory($request->category, 'product', 'product', $request->id);
 	}
 
 	public function aCategorySet()
@@ -81,6 +107,7 @@ class ProductController extends Controller
 			'category'  => 'required',
 			'price'  => ['required', 'integer'],
 			'num' => ['required', 'integer'],
+			'file_name' => ['required'],
 		]);
 		if ($validator->fails()) {
 			return json_encode(['success' => false, 'errors' => $validator->getMessageBag()->toArray()]);
