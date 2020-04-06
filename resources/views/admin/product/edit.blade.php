@@ -65,7 +65,7 @@
 				<input type="file" id="file_01" name="file_data" class="custom-file-input" id="customFile">
 				<label class="custom-file-label" for="customFile">{{@$result['file_name']}}</label>
 			</div>
-			<div class="text-danger" data-errmes="file_name"></div>
+			<div class="text-danger" data-errmes="file_data"></div>
 		</div>
 	</div>
 	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>

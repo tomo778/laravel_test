@@ -101,14 +101,22 @@ class ProductController extends Controller
 
 	public function val(Request $request)
 	{
-		$validator = Validator::make($request->all(), [
+		$array = [
 			'title'  => 'required',
 			'text' => 'required',
 			'category'  => 'required',
 			'price'  => ['required', 'integer'],
 			'num' => ['required', 'integer'],
-			'file_name' => ['required'],
-		]);
+			'file_data' => [
+				'required',
+				'mimes:jpeg,bmp,png',
+				'dimensions:min_width=100,min_height=200'
+			],
+		];
+		if (!empty($request->file_name) && empty($request->file_data)) {
+			unset($array['file_data']);
+		}
+		$validator = Validator::make($request->all(), $array);
 		if ($validator->fails()) {
 			return json_encode(['success' => false, 'errors' => $validator->getMessageBag()->toArray()]);
 		} else {
