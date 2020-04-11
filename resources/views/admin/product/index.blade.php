@@ -40,7 +40,11 @@
 					@endif
 				</td>
 				<td>{{ str_limit($v['title'], $limit = 30, $end = '...') }}</td>
-				<td><img src="{{Config::get('const.storage_thumbnail_path')}}{{@$v['file_name']}}?{{@$v['updated_at']}}" alt="dummy" width="100"></td>
+				<td>
+					@if (!empty($v['file_name']))
+					<img src="{{Config::get('const.storage_thumbnail_path')}}{{@$v['file_name']}}?{{@$v['updated_at']}}" alt="dummy" width="100">
+					@endif
+				</td>
 				<td>{{ str_limit($v['text'], $limit = 100, $end = '...') }}</td>
 				<td>{{$v['price']}}</td>
 				<td>{{$v['num']}}</td>

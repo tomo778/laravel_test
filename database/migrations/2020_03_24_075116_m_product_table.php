@@ -16,10 +16,11 @@ class MProductTable extends Migration
         Schema::create('m_product', function (Blueprint $table) {
             $table->increments('id');
             $table->tinyInteger('status')->unsigned()->default(0);
-            $table->string('title', '100');
+            $table->string('title', '128');
             $table->text('text');
             $table->integer('price')->default(0)->comment('価格');
             $table->integer('num')->default(0)->comment('個数');
+            $table->string('file_name', '128')->nullable();
             $table->timestamps();
         });
     }

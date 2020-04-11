@@ -78,19 +78,21 @@ class ProductTableSeeder extends Seeder {
 				'title' => '商品名' . $i,
 				'text' => '説明文' . $i,
 				'price' => '1000',
-				'num' => '100',
+                'num' => '100',
+                'file_name' => null,
 				'created_at' => $now,
 				'updated_at' => $now,
 			];
 			DB::table('m_product')->insert($data);
 		}
-		for ($i=21; $i < 30; $i++) { 
+		for ($i=20; $i < 30; $i++) { 
 			$data = [
 				'status' => 1,
 				'title' => '商品名' . $i,
 				'text' => '説明文' . $i,
 				'price' => '3000',
-				'num' => '10',
+                'num' => '10',
+                'file_name' => null,
 				'created_at' => $now,
 				'updated_at' => $now,
 			];
@@ -117,7 +119,7 @@ class RCategoryTableSeeder extends Seeder {
 			DB::table('r_category')->insert($data);
 
 		}
-		for ($i=11; $i < 30; $i++) { 
+		for ($i=10; $i < 30; $i++) { 
 			$data = [
 				'plugin' => 'product',
 				'plugin_id' => $i,
