@@ -1,7 +1,7 @@
 <?php
 //商品個数のselect用
 foreach (range(1, 10) as $number) {
-    $quantity[$number] = $number;
+	$quantity[$number] = $number;
 }
 
 return [
@@ -16,9 +16,21 @@ return [
 	*/
 
 	'site_name' => 'テストECサイト',
+
+	/*
+	|--------------------------------------------------------------------------
+	| site_path
+	|--------------------------------------------------------------------------
+	|
+	| ??????
+	|
+	*/
+
 	'noimg_path' => '/img/noimg.jpg',
 	'file_path' => 'public/',
 	'thumbnail_path' => 'public/thumbnail/',
+	'storage_path' => '/storage/',
+	'storage_thumbnail_path' => '/storage/thumbnail/',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -65,7 +77,7 @@ return [
 	],
 	'ROLE_ADMIN' => 1,
 	'ROLE_STAFF' => 2,
-	
+
 	//-------------------------------------
 	'action' => [
 		1 => '登録',

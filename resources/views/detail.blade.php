@@ -11,7 +11,7 @@
     @if (empty($result['file_name']))
     <img src="{{Config::get('const.noimg_path')}}">
     @else
-    <img src="/files/{{@$result['file_name']}}?{{@$result['updated_at']}}">
+    <img src="{{Config::get('const.storage_path')}}{{@$result['file_name']}}?{{@$result['updated_at']}}">
     @endif
     <hr>
     <p>{!! nl2br(e($result['text'])) !!}</p>

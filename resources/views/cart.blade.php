@@ -78,7 +78,7 @@
                 @if (empty($v['file_name']))
                 <td><img src="{{Config::get('const.noimg_path')}}" alt="dummy" width="100"></td>
                 @else
-                <td><img src="/files/thumbnail/{{@$v['file_name']}}?{{@$v['updated_at']}}" alt="dummy" width="100"></td>
+                <td><img src="{{Config::get('const.storage_thumbnail_path')}}{{@$v['file_name']}}?{{@$v['updated_at']}}" alt="dummy" width="100"></td>
                 @endif
                 <td><a href="{{ route('product', ['id' => $v['id']]) }}">{{$v['title']}}</a></td>
                 <td>{{number_format($v['price'])}}円</td>

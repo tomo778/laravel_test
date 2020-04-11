@@ -4,7 +4,7 @@
             @if (empty($v['file_name']))
             <img src="{{Config::get('const.noimg_path')}}" alt="dummy" width="100">
             @else
-            <img src="/storage/thumbnail/{{@$v['file_name']}}?{{@$v['updated_at']}}" alt="dummy" width="100">
+            <img src="{{Config::get('const.storage_thumbnail_path')}}{{@$v['file_name']}}?{{@$v['updated_at']}}" alt="dummy" width="100">
             @endif
         </a>
     </div>
