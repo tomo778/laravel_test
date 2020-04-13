@@ -4,9 +4,8 @@ $(function () {
     if (alertTopLeft != null) {
         alertTopLeft.classList.toggle('alert_none');
     }
-    //フォームのsubmitを拾う
     $('.edit_btn').on('click', function (event) {
-
+        //関数
         function doajax() {
             $.ajax({
                 url: $form.attr('name'),
@@ -49,9 +48,9 @@ $(function () {
         //     var c = tinyMCE.get(name).getContent();
         //     $(this).val(c);
         // });
+        event.preventDefault();
         $('.loading').removeClass('d-none');
         $('.edit_btn').hide();
-        event.preventDefault();
         $form = $(this).parents('form:first');
         var form = $(this).parents('form:first').get()[0];
         var formData = new FormData(form);
