@@ -1,9 +1,16 @@
 $(function () {
 
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
     const alertTopLeft = document.getElementById('alert-top-left');
     if (alertTopLeft != null) {
         alertTopLeft.classList.toggle('alert_none');
     }
+
     $('.edit_btn').on('click', function (event) {
         //関数
         function doajax() {
@@ -57,5 +64,47 @@ $(function () {
         setTimeout(function () {
             doajax();
         }, 500);
+    });
+
+    $('input:checkbox[name="checkbox-all"]').on('click', function (event) {
+        if ($(this).val() == 0) {
+            $('input:checkbox[name="checkbox-val"]').prop('checked', true);
+            $(this).val(1);
+        } else {
+            $('input:checkbox[name="checkbox-val"]').prop('checked', false);
+            $(this).val(0);
+        }
+    });
+
+    $('#form-select').on('change', function (event) {
+        var r = $('option:selected').val();
+        $('#form-select').val(0);
+        var mes = {
+            1: { "mes": "公開にしても宜しいですか？" },
+            2: { "mes": "非公開にしても宜しいですか？" },
+            3: { "mes": "削除しても宜しいですか？" },
+        };
+        var result = window.confirm(mes[r].mes);
+        if (result) {
+            var vals = new Array();
+            $('input:checkbox[name="checkbox-val"]:checked').each(function () {
+                vals.push($(this).val());
+            });
+            $.ajax({
+                url: "/admin/product/" + "checkbox",
+                type: 'post',
+                data: {
+                    mode: r,
+                    vals: vals
+                },
+                timeout: 10000,
+                success: function (result, textStatus, xhr) {
+                    location.reload();
+                },
+                error: function (data) {
+                    console.debug(data);
+                }
+            });
+        }
     });
 });

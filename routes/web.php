@@ -87,6 +87,9 @@ foreach ($v as $k => $vv) {
 	Route::post('/admin/' . $k . '/edit/{id}', "Admin\\{$k2}Controller@update_exe")
 	->middleware('CheckAdminLogin');
 }
+//
+Route::post('/admin/product/checkbox', "Admin\ProductController@checkbox")
+->middleware('CheckAdminLogin');
 
 // 送信メール本文のプレビュー
 Route::get('/mailable/purchase', function () {

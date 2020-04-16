@@ -99,6 +99,38 @@ class ProductController extends Controller
 		ACategory::insert($results);
 	}
 
+	public function checkbox(Request $request)
+	{
+		if ($request->mode == 1) {
+			$this->on($request);
+		}
+		if ($request->mode == 2) {
+			$this->off($request);
+		}
+		if ($request->mode == 3) {
+			$this->delete($request);
+		}
+		return json_encode(['success' => true]);
+	}
+
+	public function on($request)
+	{
+		Product::whereIn('id', $request->vals)->update(['status' => config('const.STATUS_ON')]);
+		// $flight = Product::whereIn('id', $request->vals);
+		// $flight->status = config('const.STATUS_ON');
+		// $flight->save();
+	}
+
+	public function off($request)
+	{
+		Product::whereIn('id', $request->vals)->update(['status' => config('const.STATUS_OFF')]);
+	}
+
+	public function delete($request)
+	{
+		Product::destroy($request->vals);
+	}
+
 	public function val(Request $request)
 	{
 		$array = [

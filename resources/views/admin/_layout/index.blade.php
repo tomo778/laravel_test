@@ -8,6 +8,8 @@
 	<link rel="stylesheet" href="{{ mix('/css/app.css') }}">
 	<link rel="stylesheet" href="{{asset('/css/alerts-css.min.css')}}" />
 	<link rel="stylesheet" href="{{asset('/css/common.css')}}" />
+	<meta name="csrf-token" content="{{ csrf_token() }}">
+
 </head>
 <body>
 	<nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
