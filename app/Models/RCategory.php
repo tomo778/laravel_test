@@ -15,7 +15,7 @@ class RCategory extends Model
 
     public function getCategory ()
     {
-        return $this->hasOne('\App\Models\Category','id','category_id');
+        return $this->hasOne('\App\Models\Category::class','id','category_id');
     }
 
     public function scopeInsertCategory($query, $array, $plugin, $category, $last_id)
