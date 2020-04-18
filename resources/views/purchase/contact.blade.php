@@ -7,14 +7,14 @@
     {{ csrf_field() }}
     <p>
         名前：<br>
-        <input type="text" name="name" value="{{@$Request['name']}}" size="40">
+        <input type="text" name="name" value="{{ old('name' , @$Request['name'] ) }}" size="40">
         <br>
         <div class="err">{{@$errors->first('name')}}</div>
     </p>
     <hr>
     <p>
         住所：<br>
-        <textarea name="address" rows="4" cols="40">{{@$Request['address']}}</textarea>
+        <textarea name="address" rows="4" cols="40">{{ old('address' , @$Request['address'] ) }}</textarea>
         <br>
         <div class="err">{{@$errors->first('address')}}</div>
     </p>
@@ -23,7 +23,7 @@
         支払方法：<br>
         <select name="payway">
             @foreach (Config::get('const.payway') as $k => $v)
-            <option value="{{$k}}" @if (@$Request['payway']==$k) selected @endif>{{$v}}</option>
+            <option value="{{$k}}" @if (old('payway' , @$Request['payway'] ) == $k) selected @endif>{{$v}}</option>
             @endforeach
         </select>
     </p>

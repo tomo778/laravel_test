@@ -7,14 +7,14 @@
 {{ csrf_field() }}
     <p>
         名前：<br>
-        <input type="text" name="name" value="{{@$Request['name']}}" size="40">
+        <input type="text" name="name" value="{{ old('name' , @$Request['name'] ) }}" size="40">
         <br>
         <div class="err">{{@$errors->first('name')}}</div>
     </p>
     <hr>
     <p>
         ご感想：<br>
-        <textarea name="kanso" rows="4" cols="40">{{@$Request['kanso']}}</textarea>
+        <textarea name="kanso" rows="4" cols="40">{{ old('kanso' , @$Request['kanso'] ) }}</textarea>
         <br>
         <div class="err">{{@$errors->first('kanso')}}</div>
     </p>

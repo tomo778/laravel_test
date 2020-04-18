@@ -10,6 +10,7 @@ use App\Services\PurchaseService;
 //Mail
 use Illuminate\Support\Facades\Mail;
 use App\Mail\Purchase;
+use App\Http\Requests\PurchaseRequest;
 
 class PurchaseController extends Controller
 {
@@ -30,12 +31,8 @@ class PurchaseController extends Controller
 		return view('purchase.contact', ['Request' => session('purchase')]);
 	}
 
-	public function confirm(Request $Request)
+	public function confirm(PurchaseRequest $Request)
 	{
-		$validator = $this->val($Request);
-		if ($validator->fails()) {
-			return view('purchase.contact', ['Request' => $Request->all(), 'errors' => $validator->errors()]);
-		}
 		session(['purchase' => $Request->all()]);
 		$array_view = [
 			'Request' => session('purchase'),
@@ -80,14 +77,5 @@ class PurchaseController extends Controller
 		session()->regenerateToken();
 		session()->forget('cart');
 		session()->forget('purchase');
-	}
-
-	public function val($request)
-	{
-		$validator = Validator::make($request->all(), [
-			'name'  => 'required',
-			'address' => 'required',
-		]);
-		return $validator;
 	}
 }
