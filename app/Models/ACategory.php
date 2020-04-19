@@ -13,10 +13,9 @@ class ACategory extends Model
      */
     protected $table = 'a_category';
 
-    // public $timestamps = true;
-
-    // protected $guarded = [
-    //     'id',
-    //     '_token',
-    // ];
+    protected $fillable = [
+        'title',
+        'text',
+        'id',
+    ];
 }

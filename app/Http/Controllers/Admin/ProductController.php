@@ -43,7 +43,7 @@ class ProductController extends Controller
 		}
 		$Product->fill($request->all())->save();
 		$last_insert_id = $Product->id;
-		RCategory::InsertCategory($request->category, 'product', 'product', $last_insert_id);
+		$this->insertCategory($request->category, 'product', 'product', $last_insert_id);
 		$this->aCategorySet();
 		return redirect('admin/product/edit/' . $last_insert_id)->with('one_time_mes', 1);
 	}
@@ -81,7 +81,7 @@ class ProductController extends Controller
 		RCategory::where('plugin_id', '=', $request->id)
 			->where('plugin', '=', 'product')
 			->delete();
-		RCategory::InsertCategory($request->category, 'product', 'product', $request->id);
+		$this->insertCategory($request->category, 'product', 'product', $request->id);
 	}
 
 	public function aCategorySet()
@@ -129,6 +129,18 @@ class ProductController extends Controller
 	public function delete($request)
 	{
 		Product::destroy($request->vals);
+	}
+
+    public function insertCategory($array, $plugin, $category, $last_id)
+    {
+		foreach ($array as $k => $v) {
+			$tmp['plugin'] = $plugin;
+			$tmp['plugin_id'] = $last_id;
+			$tmp['category'] = $category;
+			$tmp['category_id'] = $v;
+			$data[] = $tmp;
+		}
+        return RCategory::insert($data);
 	}
 
 	public function val(Request $request)

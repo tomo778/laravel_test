@@ -15,14 +15,14 @@ class Category extends Model
 
     public $timestamps = true;
 
-    protected $guarded = [
-        'id',
-        '_token',
+    protected $fillable = [
+        'title',
+        'text',
     ];
 
     public function getRCategory()
     {
-        return $this->hasMany('\App\Models\RCategory', 'category_id', 'id');
+        return $this->hasMany('\App\Models\RCategory::class', 'category_id', 'id');
     }
 
     public function scopeJoinCategory($query)
