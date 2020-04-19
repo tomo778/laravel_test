@@ -15,11 +15,13 @@ class Product extends Model
 
     public $timestamps = true;
 
-    protected $guarded = [
-        'id',
-        '_token',
-        'category',
-        'file_data',
+    protected $fillable = [
+        'status',
+        'title',
+        'text',
+        'price',
+        'num',
+        'file_name',
     ];
 
     public function scopeStatusCheck($query)

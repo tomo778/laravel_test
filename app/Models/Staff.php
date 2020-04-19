@@ -15,8 +15,16 @@ class Staff extends Model
 
     public $timestamps = true;
 
-    protected $guarded = [
-        'id',
-        '_token',
+    protected $fillable = [
+        'status',
+        'role',
+        'name',
+        'email',
+        'password',
+        'created',
+        'updated',
     ];
 }
+
+	
+
