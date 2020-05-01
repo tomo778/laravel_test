@@ -7,6 +7,7 @@ use App\Libs\LogCustom;
 
 class AdminLoginService
 {
+	
 	static public function authCheck($request)
 	{
 		$data = Staff::where('email', $request['email'])->first();
