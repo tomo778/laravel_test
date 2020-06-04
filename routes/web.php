@@ -12,14 +12,15 @@
 */
 
 //公開側
-Route::get('/', 'IndexController@index')
+Route::get('/', 'ProductController@index')
 ->name('index');
 
-Route::get('/product/{id}', 'DetailController@index')
+Route::get('/product/{id}', 'ProductController@detail')
 ->name('product');
 
-Route::get('/category/{id}', 'CategoryController@index')
+Route::get('/category/{id}', 'ProductController@category')
 ->name('category');
+
 
 Route::get('/contact/', 'ContactController@index')
 ->name('contact');

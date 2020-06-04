@@ -11,7 +11,7 @@ class Staff extends Model
      *
      * @var string
      */
-    protected $table = 'a_staff';
+    protected $table = 'staffs';
 
     public $timestamps = true;
 

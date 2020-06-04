@@ -3,9 +3,9 @@
 @section('description', 'description')
 @section('body')
 <div id="blogarea">
-    @foreach (@$datas as $k => $v)
+    @foreach (@$pagination as $k => $v)
     @include('layout.part_item')
     @endforeach
 </div>
-{{ $paginate->links('pagination::bootstrap-4') }}
+{{ $pagination->links('pagination::bootstrap-4') }}
 @endsection

@@ -13,7 +13,7 @@ class CategorysTable extends Migration
      */
     public function up()
     {
-        Schema::create('a_category', function (Blueprint $table) {
+        Schema::create('categorys_flont', function (Blueprint $table) {
             $table->string('title','100');
             $table->text('text');
             $table->integer('id')->default(0)->comment('id');

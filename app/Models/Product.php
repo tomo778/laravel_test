@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
+
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
@@ -11,19 +13,44 @@ class Product extends Model
      *
      * @var string
      */
-    protected $table = 'm_product';
+    protected $table = 'products';
 
     public $timestamps = true;
 
-    protected $guarded = [
-        'id',
-        '_token',
-        'category',
-        'file_data',
+    /** JSONに含めるアクセサ */
+    protected $appends = [
+        'createdAt'
     ];
 
-    public function scopeStatusCheck($query)
+    protected $fillable = [
+        'status',
+        'title',
+        'text',
+        'price',
+        'num',
+        'file_name',
+    ];
+
+    public function category_rel(): \Illuminate\Database\Eloquent\Relations\hasMany
     {
-        return $query->where('m_product.status', config('const.STATUS_ON'));
+        return $this->hasMany(ProductCategory::class);
+    }
+
+    public function add_category(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(
+            Category::class,
+            'product_category'
+        );
+    }
+
+    public function getCreatedAtAttribute()
+    {
+        return Carbon::parse($this->attributes['created_at'])->format('Y年m月d日(D)H:i');
+    }
+
+    public function scopeStatusCheck(Object $query): \Illuminate\Database\Eloquent\Builder
+    {
+        return $query->where('products.status', config('const.STATUS_ON'));
     }
 }

@@ -14,7 +14,7 @@ class PurchaseException extends Exception
         $this->message = $message;
     }
 
-	private $log_name = 'PurchaseController';
+    private $log_name = 'PurchaseController';
     private $log_path = '/logs/purchase.log';
 
     public function report()

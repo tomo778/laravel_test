@@ -13,7 +13,7 @@ class CreateAStaffTable extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('a_staff', function (Blueprint $table) {
+		Schema::create('staffs', function (Blueprint $table) {
 			$table->increments('id');
 			$table->tinyInteger('status')->unsigned()->default(1);
 			$table->tinyInteger('role')->unsigned()->default(1);
@@ -33,6 +33,6 @@ class CreateAStaffTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('a_staff');
+		//Schema::dropIfExists('staffs');
 	}
 }

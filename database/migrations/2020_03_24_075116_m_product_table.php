@@ -13,7 +13,7 @@ class MProductTable extends Migration
      */
     public function up()
     {
-        Schema::create('m_product', function (Blueprint $table) {
+        Schema::create('products', function (Blueprint $table) {
             $table->increments('id');
             $table->tinyInteger('status')->unsigned()->default(0);
             $table->string('title', '128');
@@ -32,6 +32,6 @@ class MProductTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('m_product');
+        //Schema::dropIfExists('products');
     }
 }

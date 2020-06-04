@@ -31,7 +31,7 @@ class StaffTableSeeder extends Seeder {
 
     public function run()
     {
-        DB::table('a_staff')->truncate(); //最初に全件削除
+        //DB::table('staffs')->truncate(); //最初に全件削除
 
         Staff::create([
           'id' => '1',
@@ -50,7 +50,7 @@ class CategoryTableSeeder extends Seeder {
 
     public function run()
     {
-        DB::table('m_category')->truncate(); //最初に全件削除
+        //DB::table('categorys')->truncate(); //最初に全件削除
 
         Category::create([
           'id' => '1',
@@ -70,7 +70,7 @@ class ProductTableSeeder extends Seeder {
 
     public function run()
     {
-        DB::table('m_product')->truncate(); //最初に全件削除
+        //DB::table('products')->truncate(); //最初に全件削除
 		$now = \Carbon\Carbon::now();
 		for ($i=1; $i < 20; $i++) { 
 			$data = [
@@ -83,7 +83,7 @@ class ProductTableSeeder extends Seeder {
 				'created_at' => $now,
 				'updated_at' => $now,
 			];
-			DB::table('m_product')->insert($data);
+			DB::table('products')->insert($data);
 		}
 		for ($i=20; $i < 30; $i++) { 
 			$data = [
@@ -96,7 +96,7 @@ class ProductTableSeeder extends Seeder {
 				'created_at' => $now,
 				'updated_at' => $now,
 			];
-			DB::table('m_product')->insert($data);
+			DB::table('products')->insert($data);
 		}
     }
 }
@@ -105,31 +105,25 @@ class RCategoryTableSeeder extends Seeder {
 
     public function run()
     {
-        DB::table('r_category')->truncate(); //最初に全件削除
+        //DB::table('product_category')->truncate(); //最初に全件削除
 		$now = \Carbon\Carbon::now();
 		for ($i=1; $i < 10; $i++) { 
 			$data = [
-				'plugin' => 'product',
-				'plugin_id' => $i,
-				'category' => 'product',
+				'product_id' => $i,
 				'category_id' => '1',
 				'created_at' => $now,
 				'updated_at' => $now,
 			];
-			DB::table('r_category')->insert($data);
-
+			DB::table('product_category')->insert($data);
 		}
 		for ($i=10; $i < 30; $i++) { 
 			$data = [
-				'plugin' => 'product',
-				'plugin_id' => $i,
-				'category' => 'product',
+				'product_id' => $i,
 				'category_id' => '2',
 				'created_at' => $now,
 				'updated_at' => $now,
 			];
-			DB::table('r_category')->insert($data);
-
+			DB::table('product_category')->insert($data);
 		}
     }
 }

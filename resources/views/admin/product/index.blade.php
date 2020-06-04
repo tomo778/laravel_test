@@ -4,7 +4,7 @@
 @section('body')
 <div class="table-responsive">
 
-	{{ $result->links('pagination::bootstrap-4') }}
+	{{ $pagination->links('pagination::bootstrap-4') }}
 	<div id="form-checkbox">
 		<label for="form-select">チェックしたものを</label>
 		<select id="form-select" class="form-control" name="form-select">
@@ -33,7 +33,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			@foreach ($result as $k => $v)
+			@foreach ($pagination as $k => $v)
 			<tr>
 				<td>{{$v['id']}}</td>
 				<td><input type="checkbox" value="{{$v['id']}}" name="checkbox-val"></td>
@@ -61,7 +61,7 @@
 		</tbody>
 	</table>
 
-	{{ $result->links('pagination::bootstrap-4') }}
+	{{ $pagination->links('pagination::bootstrap-4') }}
 
 </div>
 @endsection

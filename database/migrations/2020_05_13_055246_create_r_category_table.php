@@ -13,12 +13,12 @@ class CreateRCategoryTable extends Migration
      */
     public function up()
     {
-        Schema::create('r_category', function (Blueprint $table) {
+        Schema::create('product_category', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('plugin','100');
-            $table->integer('plugin_id');
-            $table->string('category','100');
-            $table->integer('category_id');
+            $table->integer('product_id')->unsigned();
+            $table->integer('category_id')->unsigned();
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            $table->foreign('category_id')->references('id')->on('categorys')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreateRCategoryTable extends Migration
      */
     public function down()
     {
-        //Schema::dropIfExists('r_category');
+        //Schema::dropIfExists('categorys_rel');
     }
 }

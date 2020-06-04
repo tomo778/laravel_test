@@ -4,7 +4,7 @@
 @section('body')
 <h2>{{$title}}一覧</h2>
 <div id="blogarea">
-    @foreach (@$datas as $k => $v)
+    @foreach (@$paginate as $k => $v)
     @include('layout.part_item')
     @endforeach
 </div>
