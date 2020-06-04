@@ -17,11 +17,6 @@ class Product extends Model
 
     public $timestamps = true;
 
-    /** JSONに含めるアクセサ */
-    protected $appends = [
-        'createdAt'
-    ];
-
     protected $fillable = [
         'status',
         'title',
@@ -29,6 +24,11 @@ class Product extends Model
         'price',
         'num',
         'file_name',
+    ];
+
+    /** JSONに含めるアクセサ */
+    protected $appends = [
+        'createdAt'
     ];
 
     public function category_rel(): \Illuminate\Database\Eloquent\Relations\hasMany

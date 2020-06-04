@@ -6,7 +6,7 @@ use App\Models\Category;
 
 class CategoryService
 {
-    public function CategoryGet(int $id): \App\Models\Category
+    public function CategoryData(int $id): \App\Models\Category
     {
         return Category::find($id);
     }

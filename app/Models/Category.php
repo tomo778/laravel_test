@@ -15,7 +15,7 @@ class Category extends Model
 
     public $timestamps = true;
 
-    protected $guarded = [
+    protected $fillable = [
         'title',
         'text',
     ];

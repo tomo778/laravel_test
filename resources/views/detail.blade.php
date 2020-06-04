@@ -4,8 +4,8 @@
 @section('body')
 <article>
     <h2 class="blog-post-title">{{$result['title']}}</h2>
-    @foreach (@$categorys as $k2 => $v2)
-    <span class="plist"><a href="{{ route('category', ['id' => $v2['category_id']]) }}">{{$v2->title}}</a></span>
+    @foreach (@$result->add_category as $k2 => $v2)
+    <span class="plist"><a href="{{ route('category', ['id' => $v2['id']]) }}">{{$v2->title}}</a></span>
     @endforeach
     <hr>
     @if (empty($result['file_name']))

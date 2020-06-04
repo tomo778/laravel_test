@@ -4,28 +4,33 @@ namespace App\Http\Controllers\Admin;
 
 // 以下を追加
 use App\Http\Controllers\Controller;
-use App\Services\FileService;
-
+use App\Services\Admin\FileService;
+use App\Services\Admin\ProductService;
+use App\Services\Admin\CategoryService;
 use Illuminate\Http\Request;
 use App\Models\Product;
-use App\Models\Category;
-use App\Models\CategorysFlont;
-use App\Models\ProductCategory;
 use Validator;
 use DB;
 
 class ProductController extends Controller
 {
     private $fileService;
+    private $productService;
+    private $categoryService;
 
-    public function __construct(FileService $fileService)
-    {
+    public function __construct(
+        FileService $fileService,
+        ProductService $productService,
+        CategoryService $categoryService
+    ) {
         $this->fileService = $fileService;
+        $this->productService = $productService;
+        $this->categoryService = $categoryService;
     }
 
     public function index()
     {
-        $pagination = Product::with('add_category')->paginate(20);
+        $pagination = $this->productService->list();
         $data = [
             'pagination' => $pagination,
         ];
@@ -37,29 +42,20 @@ class ProductController extends Controller
         return view('admin.product.edit');
     }
 
-    public function create_exe(Request $request, Product $Product)
+    public function create_exe(Request $request)
     {
-        DB::transaction(function () use ($request, $Product) {
-            if ($request->file('file_data') !== null) {
-                $fileName = $this->fileService->addFile($request->file('file_data'));
-                $request->merge([
-                    'file_name' => $fileName,
-                ]);
-            }
-            $Product->fill($request->all())->save();
-            $last_insert_id = $Product->id;
-            ProductCategory::InsertRel($request->category, $last_insert_id);
-            $this->CategorysFlontSet();
+        $last_id = DB::transaction(function () use ($request) {
+            $request = $this->fileService->create($request);
+            $last_id = $this->productService->create($request);
+            $this->categoryService->categorysFlontSet();
+            return $last_id;
         });
-        return redirect('admin/product/edit/' . $last_insert_id)->with('one_time_mes', 1);
+        return redirect('admin/product/edit/' . $last_id)->with('one_time_mes', 1);
     }
 
-    public function update($id)
+    public function update(int $id)
     {
-        $detail = Product::with('add_category')->StatusCheck()->find($id);
-        if (empty($detail)) {
-            abort('404');
-        }
+        $detail = $this->productService->updateDatas($id);
         $data = [
             'detail' => $detail,
             'select_category' => $detail->add_category->pluck('id')->toArray()
@@ -70,35 +66,11 @@ class ProductController extends Controller
     public function update_exe(Request $request)
     {
         DB::transaction(function () use ($request) {
-            if ($request->file('file_data') !== null) {
-                $this->fileService->removeFile($request->id);
-                $fileName = $this->fileService->addFile($request->file('file_data'));
-                $request->merge([
-                    'file_name' => $fileName,
-                ]);
-            }
-            $q = Product::findOrFail($request->id);
-            $q->fill($request->all())->save();
-            ProductCategory::where('product_id', '=', $request->id)
-                ->delete();
-            ProductCategory::InsertRel($request->category, $request->id);
-            $this->CategorysFlontSet();
+            $request = $this->fileService->update($request);
+            $this->productService->update($request);
+            $this->categoryService->categorysFlontSet();
         });
         return redirect('admin/product/edit/' . $request->id)->with('one_time_mes', 2);
-    }
-
-    public function CategorysFlontSet(): void
-    {
-        $results = Category::select('categorys.id', 'categorys.title', 'categorys.text')
-            ->leftJoin('product_category', 'product_category.category_id', '=', 'categorys.id')
-            ->leftJoin('products', 'products.id', '=', 'product_category.product_id')
-            ->where('products.status', config('const.STATUS_ON'))
-            ->groupBy('categorys.id')
-            ->orderBy('categorys.id', 'asc')
-            ->get()
-            ->toArray();
-        CategorysFlont::truncate();
-        CategorysFlont::insert($results);
     }
 
     public function checkbox(Request $request)
@@ -115,17 +87,17 @@ class ProductController extends Controller
         return json_encode(['success' => true]);
     }
 
-    public function on($request)
+    public function on(Request $request): void
     {
         Product::whereIn('id', $request->vals)->update(['status' => config('const.STATUS_ON')]);
     }
 
-    public function off($request)
+    public function off(Request $request): void
     {
         Product::whereIn('id', $request->vals)->update(['status' => config('const.STATUS_OFF')]);
     }
 
-    public function delete($request)
+    public function delete(Request $request): void
     {
         Product::destroy($request->vals);
     }

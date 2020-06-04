@@ -7,22 +7,26 @@ use App\Models\ProductCategory;
 
 class ProductService
 {
-    public function topPage(): \Illuminate\Pagination\LengthAwarePaginator
+    public function list(): \Illuminate\Pagination\LengthAwarePaginator
     {
-        $paginate = Product::with('add_category')->statusCheck()->paginate(6);
+        $paginate = Product::with('add_category')
+            ->statusCheck()
+            ->paginate(10);
         return $paginate;
     }
 
-    public function detailPage(int $id): \App\Models\Product
+    public function detail(int $id): \App\Models\Product
     {
-        $results = Product::with('add_category')->StatusCheck()->find($id);
+        $results = Product::with('add_category')
+            ->StatusCheck()
+            ->find($id);
         if (empty($results)) {
             abort('404');
         }
         return $results;
     }
 
-    public function categoryDetail(int $id): \Illuminate\Pagination\LengthAwarePaginator
+    public function categoryList(int $id): \Illuminate\Pagination\LengthAwarePaginator
     {
         $ids = ProductCategory::where('category_id', $id)
             ->pluck('product_id');

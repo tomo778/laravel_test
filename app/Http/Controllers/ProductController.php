@@ -21,7 +21,7 @@ class ProductController extends Controller
 
     public function index() :\Illuminate\View\View
     {
-        $pagination = $this->productService->topPage();
+        $pagination = $this->productService->list();
         $data = [
             'pagination' => $pagination,
         ];
@@ -30,13 +30,12 @@ class ProductController extends Controller
 
     public function detail(int $id) :\Illuminate\View\View
     {
-        $request = $this->productService->detailPage($id);
+        $request = $this->productService->detail($id);
         $category = collect($request->add_category)->first()->toArray();
         Breadcrumbs::push($category['title'], route('category', $category['id']));
         Breadcrumbs::push($request->title);
         $data = [
             'result' => $request,
-            'categorys' => $request->add_category,
             'Breadcrumbs' => Breadcrumbs::get()
         ];
         return view('detail', $data);
@@ -44,8 +43,8 @@ class ProductController extends Controller
 
     public function category(int $id) :\Illuminate\View\View
     {
-        $paginate = $this->productService->categoryDetail($id);
-        $category = $this->categoryService->categoryGet($id);
+        $paginate = $this->productService->categoryList($id);
+        $category = $this->categoryService->categoryData($id);
         Breadcrumbs::push($category['title']);
         $data = [
             'paginate' => $paginate,
