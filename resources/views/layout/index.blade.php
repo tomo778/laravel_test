@@ -27,9 +27,12 @@
 					<label for="panelmenu" id="topmenubtn"><span>MENU</span></label>
 					<nav id="topmenu">
 						<ul>
-							@foreach ($side_categorys as $k => $v)
-							<li><a href="{{ route('category', ['id' => $v->id]) }}">{{$v->title}}</a></li>
-							@endforeach
+							@guest
+							<li><a href="{{ route('login') }}">ログイン</a></li>
+							<li><a href="{{ route('register') }}">user登録</a></li>
+							@else
+							<li><a href="{{ route('mypage') }}">mypage</a></li>
+							@endguest
 							<li><a href="{{ route('cart') }}">カート</a></li>
 							<li><a href="{{ route('contact') }}">お問い合わせ</a></li>
 						</ul>
@@ -46,20 +49,11 @@
 					<div id="main">
 						@yield('body')
 					</div>
-					<div id="menu">
-						<nav>
-							<div class="menuitem">
-								<h4>メニュー</h4>
-								<div class="menubox menulist">
-									<ul id="menu1">
-										@foreach ($side_categorys as $k => $v)
-										<li><a href="{{ route('category', ['id' => $v->id]) }}">{{$v->title}}</a></li>
-										@endforeach
-									</ul>
-								</div>
-							</div>
-						</nav>
-					</div>
+					@isset($mypage)
+					@include('layout.sidenav_mypage')
+					@else
+					@include('layout.sidenav')
+					@endisset
 				</div>
 			</div>
 		</div>

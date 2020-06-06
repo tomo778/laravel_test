@@ -2,11 +2,42 @@
 
 namespace app\Services\Admin;
 
+use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\CategorysFlont;
 
 class CategoryService
 {
+    public function list(): \Illuminate\Pagination\LengthAwarePaginator
+    {
+        $paginate = Category::paginate(20);
+        return $paginate;
+    }
+
+    public function create(Request $request): int
+    {
+        //$q = Category::create();
+        $q = new Category;
+        $q->fill($request->all())->save();
+        $last_id = $q->id;
+        return $last_id;
+    }
+
+    public function updateDatas(int $id): \App\Models\Category
+    {
+        $detail = Category::find($id);
+        if (empty($detail)) {
+            abort('404');
+        }
+        return $detail;
+    }
+
+    public function update(Request $request): void
+    {
+        $q = Category::findOrFail($request->id);
+        $q->fill($request->all())->save();
+    }
+
     public function categorysFlontSet(): void
     {
         $results = Category::select('categorys.id', 'categorys.title', 'categorys.text')

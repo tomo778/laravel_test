@@ -28,7 +28,7 @@ class Product extends Model
 
     /** JSONに含めるアクセサ */
     protected $appends = [
-        'createdAt'
+        'createdAtJa'
     ];
 
     public function category_rel(): \Illuminate\Database\Eloquent\Relations\hasMany
@@ -44,9 +44,9 @@ class Product extends Model
         );
     }
 
-    public function getCreatedAtAttribute()
+    public function getCreatedAtJaAttribute()
     {
-        return Carbon::parse($this->attributes['created_at'])->format('Y年m月d日(D)H:i');
+        return Carbon::parse($this->attributes['created_at'])->format('Y年m月d日H:i');//'Y年m月d日(D)H:i'
     }
 
     public function scopeStatusCheck(Object $query): \Illuminate\Database\Eloquent\Builder

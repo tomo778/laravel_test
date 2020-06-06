@@ -11,7 +11,14 @@
 |
 */
 
-//公開側
+/*
+|--------------------------------------------------------------------------
+| 公開側
+|--------------------------------------------------------------------------
+|
+*/
+Auth::routes();
+
 Route::get('/', 'ProductController@index')
 ->name('index');
 
@@ -20,7 +27,6 @@ Route::get('/product/{id}', 'ProductController@detail')
 
 Route::get('/category/{id}', 'ProductController@category')
 ->name('category');
-
 
 Route::get('/contact/', 'ContactController@index')
 ->name('contact');
@@ -49,13 +55,24 @@ Route::post('/purchase/confirm/', 'PurchaseController@confirm')->middleware('Che
 Route::post('/purchase/finish/', 'PurchaseController@finish')->middleware('CheckCart')
 ->name('purchase_finish');
 
+Route::get('/mypage/', 'MypageController@index')->name('mypage');
+Route::get('/mypage/address', 'MypageController@address')->name('mypage_address');
+Route::get('/mypage/update/{id?}', 'MypageController@update')->name('mypage_update');
+Route::post('/mypage/update_exe', 'MypageController@update_exe')->name('mypage_update_exe');
+
+
 //ajax
 Route::post('/cart/remove/', 'CartController@removeItem')
 ->name('cart_remove');
 Route::post('/cart/quantity/', 'CartController@quantityChange')
 ->name('cart_quantity');
 
-//管理側
+/*
+|--------------------------------------------------------------------------
+| 管理側
+|--------------------------------------------------------------------------
+|
+*/
 Route::get('/admin/', 'Admin\IndexController@index')
 ->middleware('CheckAdminLogin');
 Route::get('/admin/login/', 'Admin\LoginController@login');

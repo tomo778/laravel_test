@@ -4,22 +4,23 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Staff extends Model
+class UsersAddress extends Model
 {
     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'staffs';
-
+    protected $table = 'users_address';
+    
     public $timestamps = true;
 
     protected $fillable = [
-        'status',
-        'role',
-        'name',
-        'email',
-        'password',
+        'user_id',
+        'zip1',
+        'zip2',
+        'pref',
+        'address1',
+        'address2',
     ];
 }

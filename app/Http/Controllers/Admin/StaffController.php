@@ -6,18 +6,27 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\View;
-use App\Models\Staff;
+use App\Services\Admin\StaffService;
 use App\Rules\UniqueEmail;
 use Validator;
 use DB;
 
 class StaffController extends Controller
 {
+    private $staffService;
+
+    public function __construct(StaffService $staffService)
+    {
+        $this->staffService = $staffService;
+    }
+
     public function index()
     {
-        $result = Staff::paginate(10);
-        return view('admin.staff.index', ['result' => $result]);
+        $pagination = $this->staffService->list();
+        $data = [
+            'pagination' => $pagination,
+        ];
+        return view('admin.staff.index', $data);
     }
 
     public function create()
@@ -25,34 +34,27 @@ class StaffController extends Controller
         return view('admin.staff.edit');
     }
 
-    public function create_exe(Request $request, Staff $Staff)
+    public function create_exe(Request $request)
     {
-        $request->merge([
-            'password' => password_hash($request->password, PASSWORD_DEFAULT),
-        ]);
-        $Staff->fill($request->all())->save();
-        $last_insert_id = $Staff->id;
-        return redirect('admin/staff/edit/' . $last_insert_id)->with('one_time_mes', 1);
+        $last_id = DB::transaction(function () use ($request) {
+            return $this->staffService->create($request);
+        });
+        return redirect('admin/staff/edit/' . $last_id)->with('one_time_mes', 1);
     }
 
     public function update($id)
     {
-        $request = Staff::findOrFail($id);
-        return view('admin.staff.edit', ['result' => $request]);
+        $detail = $this->staffService->updateDatas($id);
+        $data = [
+            'detail' => $detail,
+        ];
+        return view('admin.staff.edit', $data);
     }
 
     public function update_exe(Request $request)
     {
         DB::transaction(function () use ($request) {
-            if (!empty($request->password)) {
-                $request->merge([
-                    'password' => password_hash($request->password, PASSWORD_DEFAULT),
-                ]);
-            } else {
-                $request->offsetUnset('password');
-            }
-            $q = Staff::findOrFail($request->id);
-            $q->fill($request->all())->save();
+            $this->staffService->update($request);
         });
         return redirect('admin/staff/edit/' . $request->id)->with('one_time_mes', 2);
     }

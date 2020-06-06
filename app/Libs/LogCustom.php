@@ -19,14 +19,14 @@ class LogCustom
         $this->log = new Logger($name);
     }
 
-    public function single($path, $mes)
+    public function single($path, $mes): void
     {
         // SQL Log カスタム（1ファイル）
         $this->log->pushHandler(new StreamHandler(storage_path() . $path, config('app.log_level')));
         $this->log->addInfo($mes);
     }
 
-    public function daily($path, $mes)
+    public function daily($path, $mes): void
     {
         // SQL Log カスタム（日別）
         $this->log->pushHandler(new RotatingFileHandler(storage_path() . $path, config('app.log_max_files'), config('app.log_level')));

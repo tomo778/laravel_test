@@ -3,7 +3,7 @@
 @section('description', 'description')
 @section('body')
 <div class="table-responsive">
-	{{ $result->links('pagination::bootstrap-4') }}
+	{{ $pagination->links('pagination::bootstrap-4') }}
 	<table class="table table-striped table-sm">
 		<thead>
 			<tr>
@@ -20,7 +20,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			@foreach ($result as $k => $v)
+			@foreach ($pagination as $k => $v)
 			<tr>
 				<td>{{$v['id']}}</td>
 				<td><a href="{{route('admin_create_staff')}}/{{$v['id']}}">編集</a></td>
@@ -42,6 +42,6 @@
 			@endforeach
 		</tbody>
 	</table>
-	{{ $result->links('pagination::bootstrap-4') }}
+	{{ $pagination->links('pagination::bootstrap-4') }}
 </div>
 @endsection
