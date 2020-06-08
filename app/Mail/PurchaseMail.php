@@ -7,13 +7,11 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class Purchase extends Mailable
+class PurchaseMail extends Mailable
 {
     use Queueable, SerializesModels;
+
     protected $title;
-    protected $name;
-    protected $address;
-    protected $data;
     /**
      * Create a new message instance.
      *
@@ -23,14 +21,6 @@ class Purchase extends Mailable
     {
         //$this->title = sprintf('%sさん、ありがとうございます。', $name);
         $this->title = 'ご購入ありがとうございました。';
-        $this->name = 'テストだ王';
-        $this->address = '東京';
-        $this->data = [
-            [
-                'title' => 'Laravel-rito',
-                'price' => 'test@gmail.com'
-            ]
-        ];
     }
 
     /**
@@ -40,14 +30,21 @@ class Purchase extends Mailable
      */
     public function build()
     {
+        $session_purchase = session('purchase');
+        $session_cart = session('cart');
         return $this
-            ->view('emails.purchase')
+            ->text('emails.purchase')
+            //->view('emails.purchase')
             ->from('hoge@hoge.com')
             ->subject($this->title)
-            ->with([
-                'name' => $this->name,
-                'address' => $this->address,
-                'data' => $this->data,
+            ->with([  
+                'date' => $session_purchase['date'],
+                'user_name' => $session_purchase['user_name'],
+                'address_datas' => $session_purchase['address_datas'],
+                'order_id' => $session_purchase['order_id'],
+                'payway' => $session_purchase['payway'],
+                'items' => $session_cart['items'],
+                'price' => $session_cart['price'],
             ]);
     }
 }

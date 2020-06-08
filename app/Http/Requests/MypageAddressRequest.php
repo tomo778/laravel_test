@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class MypageUpdateRequest extends FormRequest
+class MypageAddressRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

@@ -22,6 +22,15 @@ class Common
         return $query;
     }
 
+    public static function randInt(int $num): String
+    {
+        $number = '';
+        for ($i = 0; $i < $num; $i++) {
+            $number .= rand(0, 9);
+        }
+        return $number;
+    }
+
     // public static function dl_file()
     // {
     // 	// ダウンロード対象ファイル

@@ -100,7 +100,7 @@
     合計{{number_format(@$cart['price'])}}円
     <hr>
     <div>
-        <a href="{{ route('purchase') }}" class="purchase_btn">購入する</a>
+        <a href="{{ route('purchase') }}" class="btn btn-primary purchase_btn">購入する</a>
     </div>
     @guest
     <p>※ログインが必要です。</p>

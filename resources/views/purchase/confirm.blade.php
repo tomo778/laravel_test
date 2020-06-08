@@ -3,17 +3,11 @@
 @section('description', 'description')
 @section('body')
 {{ csrf_field() }}
-<h4>お客様情報</h4>
-<p>
-    名前：<br>
-    <p>{{@$Request['name']}}</p>
-</p>
-<hr>
-<p>
-    住所：<br>
-    <p>{!! nl2br(e(@$Request['address'])) !!}</p>
-</p>
-<h4>購入商品</h4>
+<h5>お届け先</h5>
+〒{{$address['zip1']}}-{{$address['zip2']}}<br>
+{{$address['PrefText']}}
+{{$address['address1']}} {{$address['address2']}}
+<h5>購入商品</h5>
 <table class="table">
     <tbody>
         @foreach($cart['items'] as $k => $v)
@@ -32,7 +26,7 @@
 </table>
 <hr>
 合計{{number_format($cart['price'])}}円
-<h4>支払方法</h4>
+<h5>支払方法</h5>
 <p>{{$payway[@$Request['payway']]}}</p>
 <hr>
 <form action="{{ route('purchase') }}" method="post">

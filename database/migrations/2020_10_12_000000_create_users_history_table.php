@@ -17,8 +17,10 @@ class CreateUsersHistoryTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->integer('num');
-            $table->string('name');
+            $table->string('order_id');
+            $table->string('title');
+            $table->string('price');
+            $table->string('quantity');
             $table->timestamps();
         });
     }

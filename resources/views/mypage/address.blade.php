@@ -4,10 +4,10 @@
 @section('body')
 <h3>住所一覧</h3>
 @if ($data->isEmpty())
-<a href="{{ route('mypage_update')}}">住所登録</a>
+<p><a href="{{ route('mypage_create')}}" class="btn btn-primary">住所登録</a></p>
 <br>
 @else
-<a href="{{ route('mypage_update')}}">住所追加</a>
+<p><a href="{{ route('mypage_create')}}" class="btn btn-primary">住所追加</a></p>
 <br>
 @foreach (@$data as $k => $v)
 <table class="table">
@@ -15,7 +15,7 @@
         <th width="100"><a href="{{ route('mypage_update', ['id' => $v['id']]) }}">更新</a></th>
         <td>
             〒{{$v['zip1']}}-{{$v['zip2']}}<br>
-            {{Config::get('const.pref.' . $v['pref'])}}<br>
+            {{$v['PrefText']}}<br>
             {{$v['address1']}} {{$v['address2']}}
         </td>
     </tr>

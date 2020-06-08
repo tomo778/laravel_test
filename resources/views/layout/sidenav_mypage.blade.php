@@ -5,7 +5,8 @@
             <div class="menubox menulist">
                 <ul id="menu1">
                     <li><a href="{{ route('mypage')}}">top</a></li>
-                    <li><a href="{{ route('mypage_address')}}">user情報更新</a></li>
+                    <li><a href="{{ route('mypage_address')}}">住所情報</a></li>
+                    <li><a href="{{ route('mypage_history')}}">購入履歴</a></li>
                     <li><a href="{{ route('logout') }}" onclick="event.preventDefault();
                                 document.getElementById('logout-form').submit();">
                             ログアウト

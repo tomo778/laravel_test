@@ -1,48 +1,48 @@
-<!DOCTYPE html>
-<html lang="ja">
-<style>
-    body {
-        background-color: #fff;
-        margin: 50px;
-    }
+----------------------------------------------------------------------
+このメールはお客様の注文に関する大切なメールです。
+お取引が完了するまで保存してください。
+----------------------------------------------------------------------
+{{$user_name}}様
 
-    h1 {
-        font-size: 16px;
-        color: #ff6666;
-    }
 
-    #button {
-        width: 200px;
-        text-align: center;
-    }
+ご注文受付完了メール
+==============================================================☆
 
-    #button a {
-        padding: 10px 20px;
-        display: block;
-        border: 1px solid #2a88bd;
-        background-color: #FFFFFF;
-        color: #2a88bd;
-        text-decoration: none;
-        box-shadow: 2px 2px 3px #f5deb3;
-    }
+この度は、数あるショップの中から???を
 
-    #button a:hover {
-        background-color: #2a88bd;
-        color: #FFFFFF;
-    }
-</style>
-<body>
-    <h1>htmlメールテスト</h1>
-    <p>{{$name}}</p>
-    <p>{{$address}}</p>
-    <p>購入商品</p>
-    <table>
-        @foreach ($data as $values)
-        <td>{{$values['title']}}</td>
-        <td>{{$values['price']}}</td>
-        @endforeach
-    </table>
-    </br>
-    <p>ありがとうございました</p>
-</body>
-</html>
+------------------------------------------------
+
+----ご注文内容------------------------------
+
+[受注番号]{{$order_id}}
+[日時]{{$date}}
+[注文者] {{$user_name}} 様
+[支払方法] {{$payway}}（前払）
+
+--------------------------------
+[送付先] {{$user_name}} 様
+      〒{{$address_datas['zip1']}}-{{$address_datas['zip2']}}
+      {{$address_datas['PrefText']}} {{$address_datas['address1']}} {{$address_datas['address2']}}
+[商品]
+@foreach ($items as $k => $v)
+      {{$v['title']}}
+      価格 {{$v['price']}}(円)
+      数量　{{$v['quantity']}}
+
+@endforeach
+****************************************************************
+
+----------------------------------------------------------------
+合計(税込)   {{$price}}(円)
+----------------------------------------------------------------
+
+※こちらのメールは送信専用となります。ご返信いただきましても確認いたしかねます。
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+???
+
+　(MAIL)  ????
+　(URL)　 ????
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━

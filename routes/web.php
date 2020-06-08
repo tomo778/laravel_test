@@ -57,9 +57,11 @@ Route::post('/purchase/finish/', 'PurchaseController@finish')->middleware('Check
 
 Route::get('/mypage/', 'MypageController@index')->name('mypage');
 Route::get('/mypage/address', 'MypageController@address')->name('mypage_address');
+Route::get('/mypage/history', 'MypageController@history')->name('mypage_history');
+Route::get('/mypage/create/', 'MypageController@create')->name('mypage_create');
+Route::post('/mypage/create_exe', 'MypageController@create_exe')->name('mypage_create_exe');
 Route::get('/mypage/update/{id?}', 'MypageController@update')->name('mypage_update');
 Route::post('/mypage/update_exe', 'MypageController@update_exe')->name('mypage_update_exe');
-
 
 //ajax
 Route::post('/cart/remove/', 'CartController@removeItem')

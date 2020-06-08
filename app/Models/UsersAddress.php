@@ -12,7 +12,7 @@ class UsersAddress extends Model
      * @var string
      */
     protected $table = 'users_address';
-    
+
     public $timestamps = true;
 
     protected $fillable = [
@@ -23,4 +23,14 @@ class UsersAddress extends Model
         'address1',
         'address2',
     ];
+
+    /** JSONに含めるアクセサ */
+    protected $appends = [
+        'PrefText'
+    ];
+
+    public function getPrefTextAttribute()
+    {
+        return config('const.pref.' . $this->attributes['pref']);
+    }
 }

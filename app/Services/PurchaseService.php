@@ -4,6 +4,10 @@ namespace app\Services;
 
 use Illuminate\Database\DatabaseManager;
 use App\Models\Product;
+use App\Models\UsersHistory;
+use App\Libs\Common;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class PurchaseService
 {
@@ -13,7 +17,7 @@ class PurchaseService
         $this->db = $db;
     }
 
-    public function decrementQuantity()
+    public function quantityCheck(): bool
     {
         $cart_items = session('cart');
         foreach ($cart_items['items'] as $k => $v) {
@@ -29,11 +33,33 @@ class PurchaseService
                 return false;
             }
         }
-        //商品残りがある場合
+        return true;
+    }
+
+    public function decrementQuantity(): bool
+    {
+        $cart_items = session('cart');
         foreach ($cart_items['items'] as $k => $v) {
             Product::where('id', $k)
                 ->decrement('num', $v['quantity']);
         }
         return true;
+    }
+
+    public function addOrderHistory()
+    {
+        $session_purchase = session('purchase');
+        $cart_items = session('cart');
+        foreach ($cart_items['items'] as $k => $v) {
+            $tmp['user_id'] = $session_purchase['user_id'];
+            $tmp['order_id'] = $session_purchase['order_id'];
+            $tmp['title'] = $v['title'];
+            $tmp['price'] = $v['price'];
+            $tmp['quantity'] = $v['quantity'];
+            $tmp['updated_at'] = $session_purchase['date'];
+            $tmp['created_at'] = $session_purchase['date'];
+            $data[] = $tmp;
+        }
+        UsersHistory::insert($data);
     }
 }

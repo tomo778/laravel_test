@@ -28,7 +28,7 @@
         </select>
         <hr>
         <input type="hidden" name="item_id" value="{{$result['id']}}" size="40">
-        <input type="submit" value="カートに追加">
+        <input type="submit" class="btn btn-primary" value="カートに追加">
     </form>
 </article>
 @endsection
