@@ -19,8 +19,7 @@ class PurchaseMail extends Mailable
      */
     public function __construct()
     {
-        //$this->title = sprintf('%sさん、ありがとうございます。', $name);
-        $this->title = 'ご購入ありがとうございました。';
+        $this->title = sprintf('【%s】ご注文ありがとうございます', config('const.site_name'));
     }
 
     /**
@@ -35,7 +34,7 @@ class PurchaseMail extends Mailable
         return $this
             ->text('emails.purchase')
             //->view('emails.purchase')
-            ->from('hoge@hoge.com')
+            ->from(config('const.mail'))
             ->subject($this->title)
             ->with([  
                 'date' => $session_purchase['date'],

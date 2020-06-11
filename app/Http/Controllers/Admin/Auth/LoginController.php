@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Admin\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class LoginController extends Controller
@@ -26,7 +27,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = '/admin';
 
     /**
      * Create a new controller instance.
@@ -35,14 +36,30 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        $this->middleware('guest:admin')->except('logout');
     }
+
+    protected function guard()
+    {
+        return Auth::guard('admin');
+    }
+
+    public function showLoginForm()
+    {
+        return view('admin.auth.login');
+    }
+
+    // //ログインした直後に何かしらの処理
+    // protected function authenticated(Request $request, $user)
+    // {
+    //     return $user;
+    // }
 
     public function logout(Request $request)
     {
-        $this->guard()->logout();
+        $this->guard('admin')->logout();
         $request->session()->migrate(true);
         // $request->session()->invalidate(); これが全部のSessionを消してしまう
-        return redirect('/');
+        return redirect('/admin/login');
     }
 }

@@ -30,6 +30,6 @@ class CreateRCategoryTable extends Migration
      */
     public function down()
     {
-        //Schema::dropIfExists('categorys_rel');
+        Schema::dropIfExists('product_category');
     }
 }

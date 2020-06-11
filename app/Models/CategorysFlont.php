@@ -13,10 +13,8 @@ class CategorysFlont extends Model
      */
     protected $table = 'categorys_flont';
 
-    // public $timestamps = true;
-
-    // protected $guarded = [
-    //     'id',
-    //     '_token',
-    // ];
+    protected $fillable = [
+        'title',
+        'text',
+    ];
 }

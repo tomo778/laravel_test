@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CategorysTable extends Migration
+class CreateAdminsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,13 @@ class CategorysTable extends Migration
      */
     public function up()
     {
-        Schema::create('categorys_flont', function (Blueprint $table) {
+        Schema::create('admins', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title','100');
-            $table->text('text');
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->string('password');
+            $table->rememberToken();
+            $table->timestamps();
         });
     }
 
@@ -27,6 +30,6 @@ class CategorysTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categorys_flont');
+        Schema::dropIfExists('admins');
     }
 }

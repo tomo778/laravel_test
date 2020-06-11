@@ -17,7 +17,7 @@
 <input type="hidden" class="form-control" name="id" value="{{@$detail['id']}}">
 @endif
 
-<div class="form-group row">
+<!-- <div class="form-group row">
 	<label for="inputEmail" class="col-sm-2 col-form-label">公開状態</label>
 	<div class="col-sm-10">
 		@foreach (Config('const.status') as $k => $v)
@@ -26,8 +26,8 @@
 		</label>
 		@endforeach
 	</div>
-</div>
-<div class="form-group row">
+</div> -->
+<!-- <div class="form-group row">
 	<label for="inputEmail" class="col-sm-2 col-form-label">ロール</label>
 	<div class="col-sm-10">
 		@if (@$detail['id'] != '1')
@@ -40,7 +40,7 @@
 		管理者
 		@endif
 	</div>
-</div>
+</div> -->
 <div class="form-group row">
 	<label for="inputEmail" class="col-sm-2 col-form-label">名前</label>
 	<div class="col-sm-10">

@@ -9,14 +9,13 @@
 	<link rel="stylesheet" href="{{asset('/css/alerts-css.min.css')}}" />
 	<link rel="stylesheet" href="{{asset('/css/common.css')}}" />
 	<meta name="csrf-token" content="{{ csrf_token() }}">
-
 </head>
 <body>
 	<nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
 		<a class="navbar-brand col-sm-3 col-md-2 mr-0" href="/" target="_blank">管理画面</a>
 		<ul class="navbar-nav px-3">
 			<li class="nav-item text-nowrap">
-				<a class="nav-link" href="{{route('admin_logout')}}">ログアウト</a>
+				<a class="nav-link" href="{{route('admin.logout')}}">ログアウト</a>
 			</li>
 		</ul>
 	</nav>
@@ -26,7 +25,7 @@
 			<nav class="col-md-2 d-none d-md-block bg-light sidebar">
 				<div class="sidebar-sticky">
 				@foreach (Config::get('const.admin_side_nav') as $k => $v)
-					@if (!empty(@$v['role']) && @$v['role'] != session("staff_data.role"))
+					@if (!empty(@$v['role']) && @$v['role'] == session("staff_data.role"))
 					@continue
 					@endif
 					<h6 class="d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
-use Validator;
+use App\Http\Requests\ContactRequest;
 use App\Libs\Breadcrumbs;
 
 class ContactController extends Controller
@@ -25,12 +25,8 @@ class ContactController extends Controller
         return view('contact.contact', ['Request'=>session('contact')]);
     }
 
-    public function confirm(Request $Request)
+    public function confirm(ContactRequest $Request)
     {
-        $validator = $this->val($Request);
-        if ($validator->fails() == true) {
-            return view('contact.contact', ['Request'=>$Request->all(), 'errors'=> $validator->errors()]);
-        }
         session(['contact' => $Request->all() ]);
         return view('contact.confirm', ['Request'=>$Request->all()]);
     }
@@ -56,14 +52,5 @@ class ContactController extends Controller
         //各処理
         session()->regenerateToken();
         session()->forget('contact');
-    }
-
-    public function val($request)
-    {
-        $validator = Validator::make($request->all(), [
-            'name'  => 'required',
-            'kanso' => 'required',
-        ]);
-        return $validator;
     }
 }

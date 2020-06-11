@@ -3,13 +3,13 @@
 namespace app\Services\Admin;
 
 use Illuminate\Http\Request;
-use App\Models\Staff;
+use App\Admin;
 
 class StaffService
 {
     public function list(): \Illuminate\Pagination\LengthAwarePaginator
     {
-        $paginate = Staff::paginate(20);
+        $paginate = Admin::paginate(20);
         return $paginate;
     }
 
@@ -18,15 +18,15 @@ class StaffService
         $request->merge([
             'password' => password_hash($request->password, PASSWORD_DEFAULT),
         ]);
-        $q = new Staff;
+        $q = new Admin;
         $q->fill($request->all())->save();
         $last_id = $q->id;
         return $last_id;
     }
 
-    public function updateDatas(int $id): \App\Models\Staff
+    public function updateDatas(int $id): \App\Admin
     {
-        $detail = Staff::find($id);
+        $detail = Admin::find($id);
         if (empty($detail)) {
             abort('404');
         }
@@ -42,7 +42,7 @@ class StaffService
         } else {
             $request->offsetUnset('password');
         }
-        $q = Staff::findOrFail($request->id);
+        $q = Admin::findOrFail($request->id);
         $q->fill($request->all())->save();
     }
 }

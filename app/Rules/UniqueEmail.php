@@ -3,7 +3,7 @@
 namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
-use App\Models\Staff;
+use App\Admin;
 
 class UniqueEmail implements Rule
 {
@@ -28,7 +28,7 @@ class UniqueEmail implements Rule
      */
     public function passes($attribute, $value)
     {
-        $sql = Staff::where('email', $this->datas['email']);
+        $sql = Admin::where('email', $this->datas['email']);
         if (!empty($this->datas['id'])) {
             $sql->where('id', '!=', $this->datas['id']);
         }

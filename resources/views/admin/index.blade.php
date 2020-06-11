@@ -2,5 +2,5 @@
 @section('title', 'ページタイトル')
 @section('description', 'description')
 @section('body')
-{{ session("staff_data.name") }}さん
+{{ $name }}さん
 @endsection
