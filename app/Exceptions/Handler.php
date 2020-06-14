@@ -4,7 +4,6 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use App\Libs\LogCustom;
 
 class Handler extends ExceptionHandler
 {
@@ -23,14 +22,12 @@ class Handler extends ExceptionHandler
      * @var array
      */
     protected $dontFlash = [
-        // 'password',
-        // 'password_confirmation',
+        'password',
+        'password_confirmation',
     ];
 
     /**
      * Report or log an exception.
-     *
-     * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
      *
      * @param  \Exception  $exception
      * @return void
@@ -47,25 +44,27 @@ class Handler extends ExceptionHandler
      * @param  \Exception  $exception
      * @return \Illuminate\Http\Response
      */
-    public function render($request, Exception $e)
+    public function render($request, Exception $exception)
     {
-        if (app()->isLocal() || app()->runningUnitTests()) {
-            return parent::render($request, $e);
-        } else {
-            if ($this->isHttpException($e)) {
-                return $this->renderHttpException($e);
-            } else {
-                // 403
-                if ($e->getStatusCode() == 403) {
-                    return response()->view('errors.403');
-                }
-                // 404
-                if ($e->getStatusCode() == 404) {
-                    return response()->view('errors.404');
-                }
-                // 500
-                return response()->view('errors.500');
-            }
-        }
+        return parent::render($request, $exception);
+        // if (app()->isLocal()) {
+        //     // if (app()->isLocal() || app()->runningUnitTests()) {
+        //     return parent::render($request, $e);
+        // } else {
+        //     if ($this->isHttpException($e)) {
+        //         return $this->renderHttpException($e);
+        //     } else {
+        //         // 403
+        //         if ($e->getStatusCode() == 403) {
+        //             return response()->view('errors.403');
+        //         }
+        //         // 404
+        //         if ($e->getStatusCode() == 404) {
+        //             return response()->view('errors.404');
+        //         }
+        //         // 500
+        //         return response()->view('errors.500');
+        //     }
+        // }
     }
 }
