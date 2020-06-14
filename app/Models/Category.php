@@ -19,24 +19,4 @@ class Category extends Model
         'title',
         'text',
     ];
-
-    // public function getCategoryRel()
-    // {
-    //     return $this->hasMany('\App\Models\CategoryRel', 'category_id', 'id');
-    // }
-
-    // public function scopeJoinCategory($query)
-    // {
-    //     return $query->leftJoin('category_rel', 'category_rel.category_id', '=', 'categorys.id');
-    // }
-
-    // public function scopeJoinCategoryProduct($query)
-    // {
-    //     return $query->leftJoin('products', 'products.id', '=', 'category_rel.plugin_id');
-    // }
-
-    // public function scopeStatusCheck($query)
-    // {
-    //     return $query->where('products.status', config('const.STATUS_ON'));
-    // }
 }

@@ -9,21 +9,16 @@ class ProductService
 {
     public function list(): \Illuminate\Pagination\LengthAwarePaginator
     {
-        $paginate = Product::with('add_category')
+        return Product::with('add_category')
             ->statusCheck()
             ->paginate(10);
-        return $paginate;
     }
 
     public function detail(int $id): \App\Models\Product
     {
-        $results = Product::with('add_category')
+        return Product::with('add_category')
             ->StatusCheck()
-            ->find($id);
-        if (empty($results)) {
-            abort('404');
-        }
-        return $results;
+            ->findOrFail($id);
     }
 
     public function categoryList(int $id): \Illuminate\Pagination\LengthAwarePaginator

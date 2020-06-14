@@ -16,20 +16,13 @@ class CategoryService
 
     public function create(Request $request): int
     {
-        //$q = Category::create();
-        $q = new Category;
-        $q->fill($request->all())->save();
-        $last_id = $q->id;
-        return $last_id;
+        $q = Category::create($request->all());
+        return $q->id;
     }
 
     public function updateDatas(int $id): \App\Models\Category
     {
-        $detail = Category::find($id);
-        if (empty($detail)) {
-            abort('404');
-        }
-        return $detail;
+        return Category::findOrFail($id);
     }
 
     public function update(Request $request): void

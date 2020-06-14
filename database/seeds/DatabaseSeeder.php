@@ -3,8 +3,8 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
-use App\User;
-use App\Admin;
+use App\Models\User;
+use App\Models\Admin;
 use App\Models\Category;
 use App\Models\CategorysFlont;
 use App\Models\Product;
@@ -41,6 +41,7 @@ class UserTableSeeder extends Seeder
         User::create([
             'id' => '1',
             'name' => 'admin',
+            'email_verified_at' => now(),
             'email' => 'admin@gmail.com',
             'password' => password_hash('admin', PASSWORD_DEFAULT),
             'remember_token' => '',

@@ -34,6 +34,7 @@ class PurchaseMail extends Mailable
         return $this
             ->text('emails.purchase')
             //->view('emails.purchase')
+            //->markdown('emails.test')
             ->from(config('const.mail'))
             ->subject($this->title)
             ->with([  

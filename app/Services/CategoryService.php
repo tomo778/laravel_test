@@ -8,6 +8,6 @@ class CategoryService
 {
     public function CategoryData(int $id): \App\Models\Category
     {
-        return Category::find($id);
+        return Category::findOrFail($id);
     }
 }

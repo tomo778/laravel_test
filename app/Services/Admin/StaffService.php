@@ -3,7 +3,7 @@
 namespace app\Services\Admin;
 
 use Illuminate\Http\Request;
-use App\Admin;
+use App\Models\Admin;
 
 class StaffService
 {
@@ -18,19 +18,13 @@ class StaffService
         $request->merge([
             'password' => password_hash($request->password, PASSWORD_DEFAULT),
         ]);
-        $q = new Admin;
-        $q->fill($request->all())->save();
-        $last_id = $q->id;
-        return $last_id;
+        $q = Admin::create($request->all());
+        return $q->id;
     }
 
-    public function updateDatas(int $id): \App\Admin
+    public function updateDatas(int $id): \App\Models\Admin
     {
-        $detail = Admin::find($id);
-        if (empty($detail)) {
-            abort('404');
-        }
-        return $detail;
+        return Admin::findOrFail($id);
     }
 
     public function update(Request $request): void

@@ -9,14 +9,14 @@ use Illuminate\Support\Facades\Auth;
 
 class UsersAddressService
 {
-    public function list()
+    public function list(): \Illuminate\Database\Eloquent\Collection
     {
         return UsersAddress::where('user_id', Auth::id())->get();
     }
 
-    public function detail(int $id)
+    public function detail(int $id): \App\Models\UsersAddress
     {
-        return UsersAddress::find($id);
+        return UsersAddress::findOrFail($id);
     }
 
     public function create(Request $request): void
@@ -24,8 +24,7 @@ class UsersAddressService
         $request->merge([
             'user_id' => Auth::id(),
         ]);
-        $q = new UsersAddress;
-        $q->fill($request->all())->save();
+        UsersAddress::create($request->all());
     }
 
     public function update(Request $request): void

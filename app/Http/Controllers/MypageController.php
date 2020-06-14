@@ -4,16 +4,10 @@ namespace App\Http\Controllers;
 
 // use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
-use App\Services\CategoryService;
 use App\Services\UsersAddressService;
 use App\Services\UsersHistoryService;
-
-
 use App\Libs\Breadcrumbs;
 use App\Http\Requests\MypageAddressRequest;
-use App\Models\UsersAddress;
-use App\Models\UsersHistory;
-use Illuminate\Support\Facades\Auth;
 
 class MypageController extends Controller
 {
@@ -26,7 +20,7 @@ class MypageController extends Controller
     ) {
         $this->usersAddressService = $usersAddressService;
         $this->usersHistoryService = $usersHistoryService;
-        $this->middleware('auth');
+        $this->middleware('verified');
         View::share('mypage', true);
     }
 

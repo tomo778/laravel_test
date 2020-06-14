@@ -46,7 +46,7 @@ class PurchaseService
         return true;
     }
 
-    public function addOrderHistory()
+    public function addOrderHistory(): void
     {
         $session_purchase = session('purchase');
         $cart_items = session('cart');

@@ -17,9 +17,7 @@ class ProductService
 
     public function create(Request $request): int
     {
-        //$q = Product::create();
-        $q = new Product;
-        $q->fill($request->all())->save();
+        $q = Product::create($request->all());
         $last_id = $q->id;
         ProductCategory::InsertRel($request->category, $last_id);
         return $last_id;
@@ -27,12 +25,8 @@ class ProductService
 
     public function updateDatas(int $id): \App\Models\Product
     {
-        $detail = Product::with('add_category')
-            ->find($id);
-        if (empty($detail)) {
-            abort('404');
-        }
-        return $detail;
+        return Product::with('add_category')
+            ->findOrFail($id);
     }
 
     public function update(Request $request): void

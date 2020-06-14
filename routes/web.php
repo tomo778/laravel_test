@@ -17,7 +17,7 @@
 |--------------------------------------------------------------------------
 |
 */
-Auth::routes();
+Auth::routes(['verify' => true]);
 Route::get('/', 'ProductController@index')
 	->name('index');
 Route::get('/product/{id}', 'ProductController@detail')

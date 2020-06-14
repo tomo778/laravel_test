@@ -21,7 +21,7 @@ class PurchaseController extends Controller
 
     public function __construct(PurchaseService $purchaseService, UsersAddressService $usersAddressService)
     {
-        $this->middleware('auth');
+        $this->middleware('verified');
         $this->purchaseService = $purchaseService;
         $this->usersAddressService = $usersAddressService;
     }

@@ -8,12 +8,12 @@ class CartService
 {
     private $cartItems;
 
-    public function set($items)
+    public function set($items): void
     {
         $this->cartItems = $items;
     }
 
-    public function addItem($Request)
+    public function addItem($Request): array
     {
         $item_data = Product::StatusCheck()
             ->where('id', $Request->item_id)
@@ -24,21 +24,21 @@ class CartService
         return $this->cartItems;
     }
 
-    public function removeItem($id)
+    public function removeItem($id): array
     {
         unset($this->cartItems['items'][$id]);
         $this->cartItems['price'] = $this->totalAmount();
         return $this->cartItems;
     }
 
-    public function quantityChange($Request)
+    public function quantityChange($Request): array
     {
         $this->cartItems['items'][$Request->id]['quantity'] = $Request->quantity;
         $this->cartItems['price'] = $this->totalAmount();
         return $this->cartItems;
     }
 
-    public function hasItem($item_id)
+    public function hasItem($item_id): bool
     {
         if (empty($this->cartItems['items'])) {
             return false;
@@ -46,7 +46,7 @@ class CartService
         return array_key_exists($item_id, $this->cartItems['items']);
     }
 
-    public function totalAmount()
+    public function totalAmount(): int
     {
         return array_reduce(
             $this->cartItems['items'],
