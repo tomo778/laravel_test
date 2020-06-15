@@ -57,6 +57,7 @@ Route::group(['prefix' => 'mypage'], function () {
 	Route::get('address', 'MypageController@address')->name('mypage_address');
 	Route::get('history', 'MypageController@history')->name('mypage_history');
 	Route::get('create', 'MypageController@create')->name('mypage_create');
+	Route::get('create/redirect', 'MypageController@createRedirect')->name('mypage_create_redirect');
 	Route::post('create_exe', 'MypageController@create_exe')->name('mypage_create_exe');
 	Route::get('update/{id?}', 'MypageController@update')->name('mypage_update');
 	Route::post('update_exe', 'MypageController@update_exe')->name('mypage_update_exe');

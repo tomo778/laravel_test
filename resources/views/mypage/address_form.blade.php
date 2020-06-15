@@ -9,6 +9,7 @@
 @else
 <h3>住所情報-登録</h3>
 <form action="{{ route('mypage_create_exe') }}" method="post">
+<input type="hidden" name="redirect" value="{{ old('redirect', @$redirect)}}">
 @endif
 {{ csrf_field() }}
     <table class="table">

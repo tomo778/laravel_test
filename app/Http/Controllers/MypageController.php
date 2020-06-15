@@ -50,10 +50,22 @@ class MypageController extends Controller
         return view('mypage.address_form');
     }
 
+    public function createRedirect(): \Illuminate\View\View
+    {
+        $data = [
+            'redirect' => 1,
+        ];
+        return view('mypage.address_form', $data);
+    }
+
     public function create_exe(MypageAddressRequest $request): \Illuminate\Http\RedirectResponse
     {
         $this->usersAddressService->create($request);
-        return redirect('mypage/address')->with('one_time_mes', 1);
+        if ($request->redirect == 1) {
+            return redirect('purchase');
+        } else {
+            return redirect('mypage/address')->with('one_time_mes', 1);
+        }
     }
 
     public function update(int $id = null): \Illuminate\View\View

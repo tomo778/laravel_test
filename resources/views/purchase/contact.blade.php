@@ -8,7 +8,7 @@
     {{ csrf_field() }}
     @if ($data->isEmpty())
     <p>送り先住所を登録してください。</p>
-    <p>送り先住所の追加は<a href="{{ route('mypage_create')}}">こちらから</a></p>
+    <p>送り先住所の追加は<a href="{{ route('mypage_create_redirect')}}">こちらから</a></p>
     <hr>
     @elseif ($data->count() == 1)
     <div>
@@ -18,11 +18,11 @@
     </div>
     <input type="hidden" name="address" value="{{$data[0]['id']}}">
     <br>
-    <p>別の送り先の追加は<a href="{{ route('mypage_create')}}">こちらから</a></p>
+    <p>別の送り先の追加は<a href="{{ route('mypage_create_redirect')}}">こちらから</a></p>
     <hr>
     @else
     <p>送り先住所を選択してください。</p>
-    <p>送り先住所の追加は<a href="{{ route('mypage_create')}}">こちらから</a></p>
+    <p>送り先住所の追加は<a href="{{ route('mypage_create_redirect')}}">こちらから</a></p>
     <br>
     <table class="table">
         @foreach (@$data as $k => $v)
