@@ -35,7 +35,6 @@ class PurchaseMail extends Mailable
             ->text('emails.purchase')
             //->view('emails.purchase')
             //->markdown('emails.test')
-            ->from(config('const.mail'))
             ->subject($this->title)
             ->with([  
                 'date' => $session_purchase['date'],
