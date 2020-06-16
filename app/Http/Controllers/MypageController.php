@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-// use Illuminate\Http\Request;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use App\Services\UsersAddressService;
 use App\Services\UsersHistoryService;
 use App\Libs\Breadcrumbs;
 use App\Http\Requests\MypageAddressRequest;
+use Illuminate\Support\Facades\Auth;
 
 class MypageController extends Controller
 {
@@ -20,7 +21,7 @@ class MypageController extends Controller
     ) {
         $this->usersAddressService = $usersAddressService;
         $this->usersHistoryService = $usersHistoryService;
-        $this->middleware('verified');
+        //$this->middleware('verified');
         View::share('mypage', true);
     }
 
@@ -37,6 +38,21 @@ class MypageController extends Controller
         return view('mypage.address', $data);
     }
 
+    public function addressApi()
+    {
+        return $this->usersAddressService->list();
+    }
+
+    public function addressApiUpdate(Request $request)
+    {
+        return $this->usersAddressService->detail($request->id);
+    }
+
+    public function addressApiUpdateExe(MypageAddressRequest $request)
+    {
+        return $this->usersAddressService->update($request);
+    }
+    
     public function history(): \Illuminate\View\View
     {
         $data = [

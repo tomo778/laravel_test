@@ -7,11 +7,9 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<title>{{Config::get('const.site_name')}}</title>
 	<!-- body タグの最後に足す-->
-	<link rel="stylesheet" href="{{ asset('/css/app.css') }}" />
-	<link rel="stylesheet" href="{{ asset('/css/styles.css') }}" />
+	<link rel="stylesheet" href="{{ mix('/style/app.css') }}">
 	<meta name="keywords" content="aaa" />
 	<meta name="description" content="bbb" />
-	<link rel="alternate" type="application/rss+xml" title="RSS" href="rss.xml" />
 </head>
 
 <body>
@@ -61,16 +59,11 @@
 
 		<footer id="footer">
 			<div class="inner">
-				<!-- <span><a href="/">ffff</a></span>
-				<span><a href="./sitemap.html">サイトマップ</a></span> -->
 				<small>Copyright &copy; 2020 {{Config::get('const.site_name')}} All Rights Reserved</small>
 			</div>
 		</footer>
-
 	</div>
-	<!-- <script src="/js/sticky.min.js" defer></script>
-	<script src="/js/move_to.min.js" defer></script>
-	<script src="/js/ofi.min.js"></script> -->
+
 </body>
 
 </html>

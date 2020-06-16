@@ -13,6 +13,10 @@ use Illuminate\Http\Request;
 |
 */
 
+Route::get('address', 'MypageController@addressApi');
+Route::post('address/update', 'MypageController@addressApiUpdate');
+Route::post('address/update_exe', 'MypageController@addressApiUpdateExe');
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });

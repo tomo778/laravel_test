@@ -52,7 +52,7 @@ Route::group(['prefix' => 'purchase'], function () {
 	Route::post('finish', 'PurchaseController@finish')->middleware('CheckCart')
 		->name('purchase_finish');
 });
-Route::group(['prefix' => 'mypage'], function () {
+Route::group(['prefix' => 'mypage', 'middleware' => 'verified'], function () {
 	Route::get('/', 'MypageController@index')->name('mypage');
 	Route::get('address', 'MypageController@address')->name('mypage_address');
 	Route::get('history', 'MypageController@history')->name('mypage_history');

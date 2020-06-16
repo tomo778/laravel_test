@@ -5,9 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="description" content="">
 	<title>管理画面 - {{ request()->path() }}</title>
-	<link rel="stylesheet" href="{{ mix('/css/app.css') }}">
-	<link rel="stylesheet" href="{{asset('/css/alerts-css.min.css')}}" />
-	<link rel="stylesheet" href="{{asset('/css/common.css')}}" />
+	<link rel="stylesheet" href="{{ mix('/style/admin/app.css') }}">
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body>
@@ -52,8 +50,6 @@
 			</main>
 		</div>
 	</div>
-	<script src=" {{ mix('js/app.js') }} "></script>
-	<script src="{{asset('/js/alerts.js')}}"></script>
-	<script src="{{asset('/js/common.js')}}"></script>
+	<script src=" {{ mix('js/admin/app.js') }} "></script>
 </body>
 </html>

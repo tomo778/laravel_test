@@ -2,63 +2,6 @@
 @section('title', 'ページタイトル')
 @section('description', 'description')
 @section('body')
-<style>
-    .btn-disabled {
-        pointer-events: none;
-    }
-</style>
-<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-<script>
-    $(function() {
-        $('.del_btn').on('click', function(event) {
-            event.preventDefault();
-            $('.del_btn').addClass('btn-disabled');
-            $('.purchase_btn').addClass('btn-disabled');
-            $('select[name=quantity]').attr('disabled', true);
-            $.ajax({
-                url: "{{ route('cart_remove') }}",
-                type: 'post',
-                data: {
-                    '_token': "{{ csrf_token() }}",
-                    'id': $(this).data('id')
-                },
-                timeout: 10000,
-                success: function(result, textStatus, xhr) {
-                    window.location.href = "{{ route('cart') }}";
-                },
-                error: function(data) {
-                    $('.del_btn').attr('disabled', false);
-                    alert('エラーが発生しました。');
-                    window.location.href = "{{ route('cart') }}";
-                }
-            });
-        });
-        $('select[name=quantity]').on('change', function(event) {
-            event.preventDefault();
-            $('.del_btn').addClass('btn-disabled');
-            $('.purchase_btn').addClass('btn-disabled');
-            $('select[name=quantity]').attr('disabled', true);
-            $.ajax({
-                url: "{{ route('cart_quantity') }}",
-                type: 'post',
-                data: {
-                    '_token': "{{ csrf_token() }}",
-                    'id': $(this).data('id'),
-                    'quantity': $(this).val(),
-                },
-                timeout: 10000,
-                success: function(result, textStatus, xhr) {
-                    window.location.href = "{{ route('cart') }}";
-                },
-                error: function(data) {
-                    $('.del_btn').attr('disabled', false);
-                    alert('エラーが発生しました。');
-                    window.location.href = "{{ route('cart') }}";
-                }
-            });
-        });
-    });
-</script>
 <article>
     <h2>カート</h2>
     @if (@$mes == 1)
@@ -108,4 +51,66 @@
     @endguest
     @endif
 </article>
+<style>
+    .fullOverlay {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.5;
+        filter: alpha(opacity=50);
+        -ms-filter: "alpha(opacity=50)";
+        z-index: 9999;
+    }
+</style>
+<script src=" {{ mix('js/admin/app.js') }} "></script>
+<script>
+    $(function() {
+        $('.del_btn').on('click', function(event) {
+            event.preventDefault();
+            $('html').addClass('fullOverlay');
+            $('select[name=quantity]').attr('disabled', true);
+            $.ajax({
+                url: "{{ route('cart_remove') }}",
+                type: 'post',
+                data: {
+                    '_token': "{{ csrf_token() }}",
+                    'id': $(this).data('id')
+                },
+                timeout: 10000,
+                success: function(result, textStatus, xhr) {
+                    window.location.href = "{{ route('cart') }}";
+                },
+                error: function(data) {
+                    $('.del_btn').attr('disabled', false);
+                    alert('エラーが発生しました。');
+                    window.location.href = "{{ route('cart') }}";
+                }
+            });
+        });
+        $('select[name=quantity]').on('change', function(event) {
+            event.preventDefault();
+            $('html').addClass('fullOverlay');
+            $('select[name=quantity]').attr('disabled', true);
+            $.ajax({
+                url: "{{ route('cart_quantity') }}",
+                type: 'post',
+                data: {
+                    '_token': "{{ csrf_token() }}",
+                    'id': $(this).data('id'),
+                    'quantity': $(this).val(),
+                },
+                timeout: 10000,
+                success: function(result, textStatus, xhr) {
+                    window.location.href = "{{ route('cart') }}";
+                },
+                error: function(data) {
+                    $('.del_btn').attr('disabled', false);
+                    alert('エラーが発生しました。');
+                    window.location.href = "{{ route('cart') }}";
+                }
+            });
+        });
+    });
+</script>
 @endsection
