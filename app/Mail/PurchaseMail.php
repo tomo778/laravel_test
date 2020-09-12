@@ -36,7 +36,7 @@ class PurchaseMail extends Mailable
             //->view('emails.purchase')
             //->markdown('emails.test')
             ->subject($this->title)
-            ->with([  
+            ->with([
                 'date' => $session_purchase['date'],
                 'user_name' => $session_purchase['user_name'],
                 'address_datas' => $session_purchase['address_datas'],

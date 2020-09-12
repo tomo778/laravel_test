@@ -13,6 +13,7 @@ use App\Mail\PurchaseMail;
 use App\Libs\Common;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use App\Exceptions\PurchaseException;
 
 class PurchaseController extends Controller
 {
@@ -26,7 +27,7 @@ class PurchaseController extends Controller
         $this->usersAddressService = $usersAddressService;
     }
 
-    public function index()
+    public function index(): \Illuminate\View\View
     {
         $data = [
             'data' => $this->usersAddressService->list(),
@@ -34,7 +35,7 @@ class PurchaseController extends Controller
         return view('purchase.contact', $data);
     }
 
-    public function back()
+    public function back(): \Illuminate\View\View
     {
         $data = [
             'data' => $this->usersAddressService->list(),
@@ -43,7 +44,7 @@ class PurchaseController extends Controller
         return view('purchase.contact', $data);
     }
 
-    public function confirm(PurchaseRequest $Request)
+    public function confirm(PurchaseRequest $Request): \Illuminate\View\View
     {
         session(['purchase' => $Request->all()]);
         $data = [
@@ -55,32 +56,43 @@ class PurchaseController extends Controller
         return view('purchase.confirm', $data);
     }
 
-    public function finish()
+    public function finish(): \Illuminate\View\View
     {
         $this->addSessionData();
-        $this->purchase();
+        switch ($this->purchase()) {
+            case 'quantity':
+                return view('errors.quantity');
+            case 'payment':
+                \Log::info("err payment id:" . Auth::id());
+                return view('errors.payment');
+        }
         $this->sendMail();
-        $this->purchaseService->addOrderHistory();
         $this->saveSession();
         return view('purchase.finish');
     }
 
-    private function purchase()
+    private function purchase(): ?string
     {
-        DB::transaction(function () {
-            //商品個数管理
+        return DB::transaction(function () {
+            //商品個数チェック
             if ($this->purchaseService->quantityCheck() == false) {
                 DB::rollBack();
-                return view('purchase.err_quantity');
+                return 'quantity';
             };
+            //商品個数減らす
             $this->purchaseService->decrementQuantity();
+            //購入履歴
+            $this->purchaseService->addOrderHistory();
             //決済処理
             $payment = PaymentFactory::create();
-            $payment->execute();
+            if ($payment->execute() == false) {
+                DB::rollBack();
+                return 'payment';
+            };
         });
     }
 
-    private function sendMail()
+    private function sendMail(): void
     {
         $bcc = 'bcc@mail.com';
         Mail::to(Auth::user()->email)
@@ -89,7 +101,7 @@ class PurchaseController extends Controller
             ->send(new PurchaseMail());
     }
 
-    private function addSessionData()
+    private function addSessionData(): void
     {
         $date = Carbon::now();
         //
@@ -102,7 +114,7 @@ class PurchaseController extends Controller
         session(['purchase' => $session]);
     }
 
-    private function saveSession()
+    private function saveSession(): void
     {
         session()->regenerateToken();
         session()->forget('cart');

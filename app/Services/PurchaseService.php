@@ -2,7 +2,7 @@
 
 namespace app\Services;
 
-use Illuminate\Database\DatabaseManager;
+//use Illuminate\Database\DatabaseManager;
 use App\Models\Product;
 use App\Models\UsersHistory;
 use App\Libs\Common;
@@ -11,11 +11,11 @@ use Illuminate\Support\Facades\Auth;
 
 class PurchaseService
 {
-    protected $db;
-    public function __construct(DatabaseManager $db)
-    {
-        $this->db = $db;
-    }
+    // protected $db;
+    // public function __construct(DatabaseManager $db)
+    // {
+    //     $this->db = $db;
+    // }
 
     public function quantityCheck(): bool
     {
@@ -36,14 +36,13 @@ class PurchaseService
         return true;
     }
 
-    public function decrementQuantity(): bool
+    public function decrementQuantity(): void
     {
         $cart_items = session('cart');
         foreach ($cart_items['items'] as $k => $v) {
             Product::where('id', $k)
                 ->decrement('num', $v['quantity']);
         }
-        return true;
     }
 
     public function addOrderHistory(): void

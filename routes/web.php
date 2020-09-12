@@ -10,7 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+$router->get('/wait', 'SampleController@wait');
 /*
 |--------------------------------------------------------------------------
 | 公開側

@@ -25,6 +25,6 @@ class PurchaseException extends Exception
 
     public function render()
     {
-        return response()->view('errors.500');
+        return response()->view('errors.quantity');
     }
 }

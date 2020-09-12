@@ -12,6 +12,6 @@ class IndexController extends Controller
         $data = [
             'name' => Auth::user('admin')->name,
         ];
-        return view('admin/index',$data);
+        return view('admin/index', $data);
     }
 }

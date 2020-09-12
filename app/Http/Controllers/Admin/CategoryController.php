@@ -12,7 +12,6 @@ use DB;
 
 class CategoryController extends Controller
 {
-
     private $categoryService;
 
     public function __construct(CategoryService $categoryService)

@@ -9,7 +9,7 @@
 @else
 <p><a href="{{ route('mypage_create')}}" class="btn btn-primary">住所追加</a></p>
 <br>
-<div id="vue">
+<div id="vue" v-cloak>
     <table class="table" v-for="it in items" :key="it.id">
         <tr>
             <th width="100"><a href="" v-on:click.prevent="update(it.id)">更新</a></th>
@@ -24,7 +24,7 @@
         <loading-bar :loading="loading" />
     </div>
     <div id="overlay" v-if="show">
-        <div id="content">
+        <div id="overlay_content">
             <h3>住所更新</h3>
             <table class="table">
                 <tr>
@@ -75,41 +75,9 @@
     </div>
 </div>
 @endif
+@endsection
+@section('script')
 <script src=" {{ mix('js/app.js') }} "></script>
-<style>
-    #content {
-        z-index: 9999;
-        transform: translate(calc(50vw - 50%),calc(50vh - 50%));/* 1行 */
-        max-width: 90vw;
-        max-height: 90vh;
-        box-sizing: border-box;
-        padding: 20px;
-        background-color: #fff;
-    }
-
-    @media screen and (min-width:600px) {
-        #content {
-            width: 500px;
-        }
-    }
-
-    @media screen and (max-width:600px) {
-        #content {
-            overflow: scroll;
-        }
-    }
-
-    #overlay {
-        position: fixed;
-        left: 0;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        z-index: 9;
-        background-color: rgba(255, 255, 255, .8);
-
-    }
-</style>
 <script>
     // Vue
     new Vue({
