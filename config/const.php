@@ -15,7 +15,7 @@ return [
 	|
 	*/
 
-	'site_name' => 'テストECサイト',
+	'site_name' => 'サイト名',
 	'mail' => 'test-ec@test.com',
 	'url' => 'http://localhost/',
 
