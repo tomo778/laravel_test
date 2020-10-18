@@ -13,17 +13,17 @@ Laravelを使用して作ったデモecサイトです。
 
 ## 仕様技術
 
-Laravel  
-html  
-css  
-vue.js  
-jquery  
+Laravel  5.8
+html
+css
+vue.js 2.6.11
+jquery 3.2
 
 ## おもな実装機能
 
 ●公開側
 
-ユーザー登録  
+ユーザー登録 (multi auth)
 ログイン  
 ログアウト  
 会員情報編集機能  
@@ -34,6 +34,6 @@ jquery
 
 ●管理側
 
-管理ユーザー登録・編集  
+管理ユーザー登録・編集 (multi auth)
 商品登録機能  
 カテゴリ登録機能  
